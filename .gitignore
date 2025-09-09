@@ -1,0 +1,2 @@
+# MySQLのデータはGitで管理しない
+docker/mysql/data/
