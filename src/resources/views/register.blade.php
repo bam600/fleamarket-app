@@ -6,14 +6,15 @@
     <title>新規登録画面</title>
 </head>
 
-<form action="/mypage" method="post">
-    @csrf
 <body>
+    <!-- register.storeでバリデーション -->
+    <form action="{{ route('register.store') }}" method="post">
+    @csrf
     <h2>会員登録</h2>
     <label>ユーザー名</label>
 
     <!-- バリデーション名:"username" -->
-    <input type ="name" name="username" placeholder="テスト太郎" />
+    <input type ="name" name="username" placeholder="テスト太郎"  value="{{ old('username') }}"/>
     <!-- エラーメッセージ -->
     @error('username')
    {{ $message }}
@@ -21,7 +22,7 @@
 
     <label>メールアドレス</label>
     <!-- バリデーション名：email -->
-    <input type ="email" name="email" placeholder="1234@gmail.com" />
+    <input type ="email" name="email" placeholder="1234@gmail.com" value="{{ old('email') }}" />
     <!-- エラーメッセージ -->
     @error('email')
    {{ $message }}
@@ -29,7 +30,7 @@
 
     <label>パスワード</label>
     <!-- バリデーション名：password -->
-    <input type ="password" name="password" placeholder="12345abcde" />
+    <input type ="password" name="password" placeholder="12345abcde" value="{{ old('password') }}"/>
     <!-- エラーメッセージ -->
     @error('password')
    {{ $message }}
@@ -37,7 +38,7 @@
 
     <label>確認用パスワード</label>
     <!-- バリデーション名： checkpassword-->
-    <input type ="password" name="checkpassword" placeholder="12345abcde" />
+    <input type ="password" name="checkpassword" placeholder="12345abcde" value="{{ old('checkpassword') }}" />
     <!-- エラーメッセージ -->
     @error('checkpassword')
    {{ $message }}
@@ -45,6 +46,6 @@
 
     <button type="submit">登録する</button>
     ログインはこちら
-</body>
 </form>
+</body>
 </html>

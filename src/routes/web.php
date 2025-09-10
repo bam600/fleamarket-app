@@ -21,9 +21,15 @@ Route::get('/', function () {
 
 // 新規会員登録画面用 (get/post両方必要)
 Route::get('/register', [RegisterController::class, 'show']);
-Route::post('/register', [RegisterController::class, 'store']);
+// register.storeでbladeファイルのf
+// formボタンを押下した際にバリデーション確認
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+;
 
 // プロフィール初回登録画面用
 Route::post('/mypage', function () {
+    return view('mypage');
+});
+Route::get('/mypage', function () {
     return view('mypage');
 });

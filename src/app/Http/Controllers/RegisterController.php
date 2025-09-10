@@ -13,6 +13,7 @@ class RegisterController extends Controller
       // バリデーション後変数registerに格納
       // (ユーザー名、アドレス、パスワード確認用パスワード)
       $register = $request->only(['username', 'email', 'password', 'checkpassword']);
+      // ブレードファイルに値を戻す用(変数:data)
       return view('register');
    }
 
