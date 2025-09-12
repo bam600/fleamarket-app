@@ -13,13 +13,17 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+        //顧客情報新規登録及びプロフィール登録用テーブル(user_profiles)
         Schema::create('users', function (Blueprint $table) {
+            // id
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            // ユーザー名
+            $table->string('user_name', 255);
+            // メールアドレス
+            $table->string('email', 255)->unique();
+            // パスワード
+            $table->string('password', 255);
+            // タイムスタンプ
             $table->timestamps();
         });
     }

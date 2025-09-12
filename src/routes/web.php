@@ -3,33 +3,26 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-// laravelトップページ用
-Route::get('/', function () {
-    return view('welcome');
-});
+// PG03(会員登録画面)------------------------------------------------------------------------------------
 
-// 新規会員登録画面用 (get/post両方必要)
+// (get/post両方必要)
 Route::get('/register', [RegisterController::class, 'show']);
+
 // register.storeでbladeファイルのf
 // formボタンを押下した際にバリデーション確認
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
-;
 
-// プロフィール初回登録画面用
-Route::post('/mypage', function () {
-    return view('mypage');
-});
-Route::get('/mypage', function () {
-    return view('mypage');
-});
+//-----------------------------------------------------------------------------------------------------
+
+
+
+// PG10(プロフィール設定)--------------------------------------------------------------------------------
+
+// 新規登録が問題なく完了したらmypageへ遷移する設定
+Route::get('/mypage', [RegisterController::class, 'mypage'])->name('mypage');
+
+// プロフィール設定画面からプロフィール画面へ遷移
+Route::get('/mypage/profile', [RegisterController::class, 'mypage'])->name('mypage.profile');
+
+//-----------------------------------------------------------------------------------------------------

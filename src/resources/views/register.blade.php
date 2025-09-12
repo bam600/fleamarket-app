@@ -14,9 +14,9 @@
     <label>ユーザー名</label>
 
     <!-- バリデーション名:"username" -->
-    <input type ="name" name="username" placeholder="テスト太郎"  value="{{ old('username') }}"/>
+    <input type ="text" name="user_name" placeholder="テスト太郎"  value="{{ old('user_name') }}"/>
     <!-- エラーメッセージ -->
-    @error('username')
+    @error('user_name')
    {{ $message }}
    @enderror
 
@@ -38,9 +38,10 @@
 
     <label>確認用パスワード</label>
     <!-- バリデーション名： checkpassword-->
-    <input type ="password" name="checkpassword" placeholder="12345abcde" value="{{ old('checkpassword') }}" />
+     <!-- 確認用パスワードの名前はpassword_confirmation！！ -->
+    <input type ="password" name="password_confirmation" placeholder="12345abcde" value="{{ old('password_confirmation') }}" />
     <!-- エラーメッセージ -->
-    @error('checkpassword')
+    @error('password_confirmation')
    {{ $message }}
    @enderror
 

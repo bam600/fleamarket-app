@@ -12,7 +12,7 @@
     <h2>プロフィール設定</h2>
     <label>ユーザー名</label>
     <!-- バリデーション名:"username" -->
-    <input type ="name" name="username" placeholder="テスト太郎" />
+    <input type ="text" name="username" placeholder="テスト太郎" />
     <label>郵便番号</label>
     <input type ="text" name="postal_code" placeholder="1234@gmail.com" />
     <label>住所</label>

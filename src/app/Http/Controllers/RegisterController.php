@@ -3,25 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
+
 
 class RegisterController extends Controller
 {
-    // 新規会員登録画面用
-    public function store(RegisterRequest $request)
-   {
-      // バリデーション後変数registerに格納
-      // (ユーザー名、アドレス、パスワード確認用パスワード)
-      $register = $request->only(['username', 'email', 'password', 'checkpassword']);
-      // ブレードファイルに値を戻す用(変数:data)
-      return view('register');
-   }
 
-    // プロフィール初回登録画面用
+   // プロフィール初回登録画面用
     public function show()
    {
-     return view('register');
+       return view('register');
    }
+
+
+    // 新規会員登録画面用
+   //  RegisterRequestでバリデーション設定していたら
+   // 引数で渡すのでこちらでは設定不要
+    public function store(RegisterRequest $request)
+   {
+      // (ユーザー名、アドレス、パスワード確認用パスワード)
+      User::create([
+         'user_name' => $request->user_name,
+         'email' => $request->email,
+         'password' => Hash::make($request->password),
+
+      ]);
+
+      return redirect()->route('mypage.profile');
+
+   }
+
+
 
     // プロフィール初回登録画面用
     public function mypage()
