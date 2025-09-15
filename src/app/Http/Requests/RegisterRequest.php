@@ -1,9 +1,11 @@
 <?php
-
+// このクラスが属する名前空間。laravelでは通常App\Http\Requestsに配置
 namespace App\Http\Requests;
-
+// laravelのFormRequestクラスを継承するために必要な宣言
 use Illuminate\Foundation\Http\FormRequest;
 
+// RegisterRequestクラスの定義FormRequestを継承してバリデーションルールや
+// メッセージを定義する
 class RegisterRequest extends FormRequest
 {
     /**
@@ -11,8 +13,10 @@ class RegisterRequest extends FormRequest
      *
      * @return bool
      */
+    // このリクエストを実行する権限有無を判定するメソッド
     public function authorize()
     {
+        // trueを返しているので誰でも使用できる状態
         return true;
     }
 
@@ -45,5 +49,6 @@ class RegisterRequest extends FormRequest
             'password.min' => 'パスワードは８文字以上で入力してください',
             'password.confirmed' => 'パスワードと一致しません'
          ];
-     }
+
+    }
 }

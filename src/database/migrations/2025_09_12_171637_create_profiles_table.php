@@ -17,7 +17,7 @@ class CreateProfilesTable extends Migration
             // Profilesテーブルのid
             $table->id();
             // id(usersテーブルのid)
-            $tabme->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             // ユーザー名
             $table->string('user_name', 20);
             // 郵便番号
@@ -29,7 +29,8 @@ class CreateProfilesTable extends Migration
             // タイムスタンプ
             $table->timestamps();
             
-            $table->foreign('id')->references('id')->on('userid')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 
