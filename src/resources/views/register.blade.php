@@ -10,9 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- ブラウザタブに表示されるページタイトル -->
     <title>新規登録画面</title>
+    <link rel="stylesheet" href="{{ asset('resourceイズcss/sanitize.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}" />
+
 </head>
     <!-- ページの表示内容(本文の開始=>bodyタグ) -->
     <body>
+        <header class="header">
+            <div class="header__inner">
+                <a class="header__logo" href="/">
+<img src="{{ asset('images/logo.svg') }}" alt="ロゴ" class="class="logo-image">
+                </a>
+            </div>
+        </header>
         <!-- 登録処理を行うルートにPOST送信するフォーム
         ルートは『register.store』 -->
         <form action="{{ route('register.store') }}" method="post">

@@ -21,7 +21,10 @@ Route::post('/register', [RegisterController::class, 'store'])->name('register.s
 // PG10:プロフィール設定-----------------------------------------------------------------------------------------
 
 //会員登録画面が問題なく進んだらプロフィール画面に遷移する(表示のみ)
-Route::get('/mypage/profile', [RegisterController::class, 'mypage'])->name('mypage');
+Route::get('/mypage/profile', [RegisterController::class, 'mypage'])->name('mypage.profile');
+
+Route::post('/mypage/profile', [RegisterController::class, 'profileStore'])->name('profile.store');
+
 
 
 //PG01：商品一覧(トップ)画面--------------------------------------------------------------------------------------------
