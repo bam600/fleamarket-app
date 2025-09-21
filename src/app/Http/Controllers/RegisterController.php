@@ -20,41 +20,33 @@ use App\Http\Requests\LoginRequest;
  **/
 class RegisterController extends Controller
 {
-
-   /**
-    * プロフィール初回登録画面用
-    *GET/registerにアクセスされたときに呼び出されるメソッド
-  **/
+   // PG03　会員登録画面******************************************************************************************************
+   // registerにアクセスしたときに呼び出されるメソッド(登録フォームの表示用)
     public function show()
    {
        return view('register');
    }
 
-
-    // 新規会員登録画面用
-   //  RegisterRequestでバリデーション設定していたら
-   // 引数で渡すのでこちらでは設定不要
+   //登録ボタンを押下したら呼び出されるstoreメソッド
+   // RegisterRequestにて事前に定義されたバリデーションルールを適用
+   // バリデーションチェックで問題なく通過した場合のみ変数$requestに渡される。
     public function store(RegisterRequest $request)
    {
-      // (ユーザー名、アドレス、パスワード確認用パスワード)
+      // バリデーション済にする
+      $validated = $request->validated();
+
+      // バリデーション通過積みのユーザー入力値
+      // UserはEloquentモデル　create()は渡された配列を使って新しいレコードを作成
       User::create([
-         'user_name' => $request->user_name,
-         'email' => $request->email,
-         'password' => Hash::make($request->password),
+        'user_name' => $validated['user_name'],
+        'email' => $validated['email'],
+         // Hash::make() は Bcrypt を使って安全に暗号化する
+        'password' => Hash::make($validated['password']),
       ]);
-      return redirect()->route('mypage.profile');
-   }
-
-    // プロフィール初回登録画面用
-    public function mypage()
-   {
-     return view('mypage');
-   }
-
-   //商品画面(トップ)用
-    public function productList()
-   {
-     return view('productList');
+   
+      //登録完了後route('profile')にリダイレクト
+      // profileコントローラのshowメソッドに遷移
+      return view('mypage.profile');
    }
 
 }

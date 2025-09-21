@@ -1,0 +1,17 @@
+/* メインコンテンツ(中身)専用*/
+
+.h2{
+    font-family: 'Inter', sans-serif;
+    font-size: 36px;
+    font-style: bold;
+    text-align: center;
+}
+
+.label{
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-style: bold;
+    text-align: center;
+
+}
+

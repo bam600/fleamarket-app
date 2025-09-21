@@ -1,11 +1,8 @@
-<!-- ログイン画面 -->
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ログイン画面</title>
-</head>
+@extends('layouts.app')
+
+@section('title', 'ログイン画面')
+
+@section('content')
 
 <body>
     <!-- /loginがフォーム送信先でPOSTメソッドで/loginに送信 -->
@@ -33,5 +30,4 @@
         <!-- route('register')：名前付きルートを使って会員登録画面へリンク-->
         <a href="{{ route('register') }}">会員登録はこちら</a>
     </form>
-</body>
-</html>
+@endsection

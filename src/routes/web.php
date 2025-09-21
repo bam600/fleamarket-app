@@ -4,32 +4,41 @@ use Illuminate\Support\Facades\Route;
 // 会員登録処理を担当するRegisterControllerを読み込むshow()やstore()メソッドが使える
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\GoodsController;
+use App\Http\Controllers\ItemController;
 
-// PG03:会員登録画面------------------------------------------------------------------------------------
-// (get/post両方必要)
-// Route::get()がURL(/register)にアクセスしたときの処理
-// getはregister.bladeの画面をただ見せるだけ
-// [RegisterController::class, 'show']→RegisterController の 
-// show() メソッドを呼び出す。
-// name('register')：このルートに register という名前を付ける。Blade側で route('register') として使える。
+// PG03 会員登録画面**************************************************************************************
+// ブラウザに『localhost/register』と入力してアクセスしたら↓が実装され
+// RegisterControllerクラスのshowメソッドが呼び出される。
 Route::get('/register', [RegisterController::class, 'show'])->name('register');
 
-//ユーザーがフォームに入力して『登録する』ボタンを押したときに呼ばれる
-//storeメソッドはRegisterRequestを使用しバリデーションを行いデータベースに保存する。(エラーがあったら元の画面に戻しエラーメッセージ)
+// 会員登録画面で入力後、『登録する』ボタンを押下するとフォームが送信される
+// postメソッドで/registerにアクセスされたらRegisterControllerクラスの
+// store()メソッドを呼び出す
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
-// PG10:プロフィール設定-----------------------------------------------------------------------------------------
 
-//会員登録画面が問題なく進んだらプロフィール画面に遷移する(表示のみ)
-Route::get('/mypage/profile', [RegisterController::class, 'mypage'])->name('mypage.profile');
+// PG10　プロフィール編集画面*******************************************************************************
 
-Route::post('/mypage/profile', [RegisterController::class, 'profileStore'])->name('profile.store');
+//会員登録画面登録OK→プロフィール画面(設定＆編集)に
+// 遷移する(表示のみ)
+Route::get('/mypage/profile', [ProfileController::class, 'Show'])->name('profile');
 
+// プロフィール画面の登録するボタンを起動を押下したら実装
+Route::post('/mypage/profile', [ProfileController::class, 'profileStore'])->name('profile.store');
 
+// PG01 商品一覧画面(トップ画面)****************************************************************************
 
-//PG01：商品一覧(トップ)画面--------------------------------------------------------------------------------------------
-// プロフィール設定画面からプロフィール画面へ遷移
-Route::get('/login', [LoginController::class, 'loginshow'])->name('login');
-// Route::get('/login', [RegisterController::class, 'mypage'])->name('mypage.profile');
+Route::get('/', [GoodsController::class, 'goods'])->name('show');
+Route::post('/', [GoodsController::class, 'store'])->name('goods.store');
 
-Route::post('/login', [LoginController::class, 'loginstore'])->name('login.store');
+// pG05 商品詳細画面***************************************************************************************
+
+Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');
+Route::post('/item', [ItemController::class, 'store'])->name('item.store');
+
+// // プロフィール設定画面からプロフィール画面へ遷移
+// Route::get('/login', [LoginController::class, 'loginshow'])->name('login');
+
+// Route::post('/login', [LoginController::class, 'loginstore'])->name('login.store');

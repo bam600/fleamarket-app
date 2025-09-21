@@ -41,7 +41,8 @@ class CreateProfilesTable extends Migration
           *onDelete('cascade')→関連するユーザが削除された場合、このレコードも
           *一緒に削除される(カスケード削除)のように設定
         **/  
-        $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+        $table->foreignId('user_id')->unique()->constrained('users')->onDelete('cascade');
+        
 
         // /**ユーザ名カラム */
         // $table->string('user_name', 255);
