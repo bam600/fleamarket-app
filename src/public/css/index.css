@@ -4,24 +4,35 @@
 table {
     margin-left: auto;
     margin-right: auto;
+    width: 100%;
+    /* 親要素いっぱいに広げる */
+    max-width:1400px;
+    /* 最大幅を制限（任意） */
+    max-height: 750px;
+    /* 高さは内容に応じて自動調整 */
+    font-size: 24px;
+    /* 文字サイズを大きくして視認性アップ */
 }
 
 .header {
     background: #000;
+    min-width :100%;
+    max-width: 1400px;
+    height: 80px;
 }
 
 .header__inner {
     padding-left: 0;
     /* 左の余白をなくす */
     display: flex;
-    max-width: 1230px;
-    
+    max-width: 1400px;
 }
 
 .logo-image {
-    width: 280px;
+    min-width:400px;
+    max-width:1400px;
     display: block;
-    margin: 10px 0 10px 20px;
+    margin: 15px 0 10px 20px;
     /* 上下10px、左20pxで右寄せ風に */
 }
 

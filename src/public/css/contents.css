@@ -1,5 +1,7 @@
 /* メインコンテンツ(中身)専用*/
 
+
+
 .h2{
     font-family: 'Inter', sans-serif;
     font-size: 36px;
@@ -15,3 +17,44 @@
 
 }
 
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    min-width: 800px;   /* 横幅を指定 */
+    max-width: 1400px;/* 横幅を指定 */
+    height: 70px;   /* 高さを指定 */
+    font-size: 16px;    /* 文字サイズを大きく */
+    padding: 8px 12px;  /* 内側の余白で見た目を調整 */
+    box-sizing: border-box; /* padding込みでサイズ調整しやすく */
+    border: 1px solid #5F5F5F;
+    border-radius: 3px;
+}
+
+/* button専用 */
+button {
+    min-width: 800px;/* 横幅を指定 */
+    max-width: 1400px;/* 横幅を指定 */
+    height: 70px;/* 高さを指定 */
+    font-size: 24px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+    background-color: #FF5555;  /* 背景色 */
+    border: none;   /* 枠線なし */
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px; /* 上下20px、左右自動で中央配置 */
+    
+}
+
+/* リンク専用 */
+.center-link {
+    text-align: center;
+    text-decoration: none;   
+}
+.center-link a {
+    text-decoration: none;
+    color:#0073CC;
+    font-size: 24px;
+    font-family: 'Inter', sans-serif;
+
+}

@@ -26,7 +26,7 @@ class RegisterRequest extends FormRequest
      * @return array
      */
 
-    // バリデーション設定メソッド(ルール記載)
+    // PG03 会員登録画面：バリデーション設定メソッド(ルール記載)
     public function rules()
     {
         return [
@@ -45,6 +45,7 @@ class RegisterRequest extends FormRequest
          return [
             'user_name.required' => 'お名前を入力してください',
             'email.required' => 'メールアドレスを入力してください',
+            'email.email'=>'メールアドレスはメールアドレス形式で入力してください',
             'password.required' => 'パスワードを入力してください',
             'password.min' => 'パスワードは８文字以上で入力してください',
             'password.confirmed' => 'パスワードと一致しません'

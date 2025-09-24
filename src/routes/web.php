@@ -5,40 +5,56 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\GoodsController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
+// PG01　商品一覧(トップ画面)-ログイン後*******************************************************************
+Route::get('/', [HomeController::class, 'index'])->name('home'); //ログイン
+Route::post('/',[HOmeController::class, 'store'])->name('goods.store');
 
 // PG03 会員登録画面**************************************************************************************
-// ブラウザに『localhost/register』と入力してアクセスしたら↓が実装され
-// RegisterControllerクラスのshowメソッドが呼び出される。
-Route::get('/register', [RegisterController::class, 'show'])->name('register');
+/**
+ * Route::get():HTTP GETメソッドでアクセスされたときのルート定義
+ * /register':ブラウザでアクセスするURL（例：http://localhost/register）
+ * [RegisterController::class, 'show']:RegisterController の show() メソッドを呼び出す
+ * ->name('register'):このルートに register という名前を付ける（Bladeなどで使える）
+ */
+Route::get('/register', [RegisterController::class, 'show'])->name('register'); 
 
-// 会員登録画面で入力後、『登録する』ボタンを押下するとフォームが送信される
-// postメソッドで/registerにアクセスされたらRegisterControllerクラスの
-// store()メソッドを呼び出す
-Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+/**
+ * Route::post():HTTP POSTメソッドでアクセスされたときのルート定義
+ * /register':フォーム送信先のURL（GETと同じURLでもメソッドが違う）
+ * [RegisterController::class, 'store']:RegisterController の store() メソッドを呼び出す
+ * ->name('register.store'):このルートに register.store という名前を付ける
+ */
+Route::post('/register', [RegisterController::class, 'store'])->name('register.create');
 
 
 // PG10　プロフィール編集画面*******************************************************************************
 
-//会員登録画面登録OK→プロフィール画面(設定＆編集)に
-// 遷移する(表示のみ)
-Route::get('/mypage/profile', [ProfileController::class, 'Show'])->name('profile');
+/**
+ * ユーザプロフィール編集するための画面を表示
+ * /mypage/profileにアクセスすると
+ * ProfileController の edit()メソッドが呼び出され
+ * view('mypage.profile') などのBladeテンプレートが表示される
+ */
+Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');  //会員登録画面で登録後のリダイレクト先
 
 // プロフィール画面の登録するボタンを起動を押下したら実装
-Route::post('/mypage/profile', [ProfileController::class, 'profileStore'])->name('profile.store');
-
-// PG01 商品一覧画面(トップ画面)****************************************************************************
-
-Route::get('/', [GoodsController::class, 'goods'])->name('show');
-Route::post('/', [GoodsController::class, 'store'])->name('goods.store');
+Route::post('/mypage/profile', [ProfileController::class, 'profileS
+tore'])->name('profile.store');
 
 // pG05 商品詳細画面***************************************************************************************
 
 Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');
 Route::post('/item', [ItemController::class, 'store'])->name('item.store');
 
-// // プロフィール設定画面からプロフィール画面へ遷移
-// Route::get('/login', [LoginController::class, 'loginshow'])->name('login');
+// pG05 商品詳細画面***************************************************************************************
 
-// Route::post('/login', [LoginController::class, 'loginstore'])->name('login.store');
+
+
+// ログイン
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+// ログアウト
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');

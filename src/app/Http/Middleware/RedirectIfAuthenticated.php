@@ -19,13 +19,11 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        $guards = empty($guards) ? [null] : $guards;
+        $guard = $guards[0] ?? null;
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
-            }
-        }
+        if (Auth::guard($guard)->check()) {
+            return redirect('/'); // ログイン後のリダイレクト先
+        }        
 
         return $next($request);
     }

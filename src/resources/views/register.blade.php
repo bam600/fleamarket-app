@@ -1,25 +1,21 @@
-@extends('layouts.app')
+<!-- PG03 会員登録登録画面 -->
+ 
+@extends('layouts.app')  <!--共通のレイアウトを継承(resources/views/layouts/app.blade.php がベース)-->
 
-@section('title', '会員登録画面')
+@section('title', '会員登録画面')   <!--HTMLの <title> タグに表示されるページタイトル。-->
 
-@section('content')
+@section('content') <!--レイアウトの @yield('content') に差し込まれるメインコンテンツ。-->
     
-    <!--form送信時にweb.php内の/registerにPOSTリクエストが送られる -->
-    <!--RegisterControllerクラスのstoreメソッドが呼び出さる-->
-    <form action="{{ route('register.store') }}" method="post">
+    <form action="{{ route('register.create') }}" method="post">    <!--web.php に定義された register.store ルートへPOST送信。通常は RegisterController@store() に対応。POSTメソッドはデータ登録に対応 -->
         @csrf
         <table>
-            <!-- フォームの見出し -->
             <th colspan=4><h2>会員登録</h2></th>
-            <!-- 入力欄のラベル -->
             <tr>
                 <td colspan =4><label>ユーザー名</label></td>
             </tr>
-            <!-- バリデーション名:"username" -->
-            <!-- - ユーザー名の入力欄。old() によりバリデーションエラー時に再表示。 -->
             <tr>
-                <td colspan =4>       
-                    <input type ="text" name="user_name" placeholder="テスト太郎"  value="{{ old('user_name') }}"/>
+                <td colspan =4>
+                    <input type ="text" name="user_name" placeholder="テスト太郎"  value="{{ old('user_name') }}"/>    <!--name="user_name"はバリデーション対象-->
                 </td>
             </tr>
                     <!-- エラーメッセージ -->
@@ -31,7 +27,7 @@
             </tr>
             <tr>
                 <!-- バリデーション名：email -->
-                <td colspan =4><input type ="email" name="email" placeholder="1234@gmail.com" value="{{ old('email') }}" /></td>
+                <td colspan =4><input type ="email" name="email" placeholder="1234@gmail.com" value="{{ old('email') }}" /></td>    <!--name="email"はバリデーション対象-->
             </tr>
                     @error('email')
                     {{ $message }}
@@ -41,7 +37,7 @@
             </tr>
             <tr>
                 <!-- バリデーション名：password -->
-                <td colspan =4><input type="password" name="password" placeholder="12345abcde" /></td>
+                <td colspan =4><input type="password" name="password" placeholder="12345abcde" /></td>  <!--name="password"はバリデーション対象-->
             </tr>    
                 @error('password')
                     {{ $message }}
@@ -50,18 +46,17 @@
                 <td><label>確認用パスワード</label></td>
             </tr>
                 <!-- バリデーション名：password_confirmation（confirmedルールと連携）--> 
-                <td><input type ="password" name="password_confirmation" placeholder="12345abcde" value="{{ old('password_confirmation') }}" /></td>
-                    <!-- エラーメッセージ -->
+                <td><input type ="password" name="password_confirmation" placeholder="12345abcde" value="{{ old('password_confirmation') }}" /></td>    <!--name="password_confirmation" → confirmed ルールと連携し、password と一致するかチェック。-->
                     @error('password_confirmation')
                     {{ $message }}
                     @enderror 
             <tr>
-                <!-- フォーム送信ボタン　押下したら登録処理を開始 -->
-                <td><button type="submit">登録する</button></td>
+                
+                <td><button type="submit">登録する</button></td>    <!--押下すると、フォームが register.store にPOST送信され、RegisterController@store() が実行されます。-->
             </tr>
             <tr>
-                <!-- ログイン画面へリンク　既存ユーザー向けの動線 -->
-                <td><a href="{{ route('login') }}">ログインはこちら</a></td>
+                <td colspan=4 class="center-link" ><a href="{{ route('login') }}">ログインはこちら</a></td> <!--既存ユーザー向けの動線。login ルートに遷移し、ログイン画面を表示します。 -->            
             </tr>
-        </form>
+        </table>
+    </form>
 @endsection
