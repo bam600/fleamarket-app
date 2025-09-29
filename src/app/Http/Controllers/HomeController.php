@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HOmeController extends Controller
+class HomeController extends Controller
 {
     //PG01　商品一覧画面(トップ画面)**********************************************************************************************
     

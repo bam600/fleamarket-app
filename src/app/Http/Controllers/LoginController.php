@@ -1,5 +1,4 @@
 <?php
-
 // - このクラスが属する名前空間は App\Http\Controllers
 namespace App\Http\Controllers;
 

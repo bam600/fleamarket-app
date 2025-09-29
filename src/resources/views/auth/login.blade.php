@@ -11,7 +11,7 @@
     <table>
         <th colspan=4><h2>ログイン</h2></th>
     <tr>
-        <td colspan=4><label>メールアドレス</label></td>
+        <td colspan=4  class="td"><label>メールアドレス</label></td>
     </tr>
     <tr>    
         <!-- バリデーション名：email -->
@@ -22,7 +22,7 @@
             {{ $message }}
             @enderror
     <tr>
-    <td colspan=4><label>パスワード</label></td>
+    <td colspan=4  class="td"><label>パスワード</label></td>
     </tr>
 
     <tr>
@@ -35,7 +35,7 @@
             @enderror
     <tr>
         <!-- button：フォーム送信ボタン ログインするボタンを押下するとform実装-->
-        <td colspan=4><button type="submit">ログインする</button></td>
+        <td colspan=4 ><button type="submit">ログインする</button></td>
     </tr>
 
     <tr>

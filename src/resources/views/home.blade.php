@@ -1,20 +1,26 @@
-<!-- PG01　商品一覧(トップ画面) -->
+<!-- PG01　商品一覧画面-->
 @extends('layouts.app')
 
 @section('title', '商品一覧')
 
+@section('header_flex')
+
+<div class ="flex">
+<input type="text" name="search" placeholder="コーポ〇〇 101号室" />
+<div><a class="header-link" href="{{ route('login') }}">ログアウト</a></div>
+<div><a class="header-link" href="{{ route('login') }}">マイメニュー</a></div>
+<div><a class="header-link header-button" href="{{ route('login') }}">出品する</a></div>
+</div>
+@endsection
+
 @section('content')
 
-        <!-- 登録処理を行うルートにPOST送信するフォーム
-        ルートは『register.store』 -->
-        <form action="{{ route('goods.store') }}" method="post">
+<a href="{{ route('login') }}">おすすめ</a>
+<a href="{{ route('login') }}">マイリスト</a>
+       
+        <form action="{{ route('details', ['id' => 1]) }}" method="get">
             <!-- laravelのセキュリティ上必須 (クロスサイトスクリプティング攻撃の保護-->
             @csrf
-            <!-- フォームの見出し -->
-            <h2>商品</h2>
  
-            <button type="submit">登録する</button>
-            <!-- ログイン画面へリンク　既存ユーザー向けの動線 -->
-            <a href="{{ route('login') }}">ログインはこちら</a>
         </form>
 @endsection

@@ -24,6 +24,7 @@
                 <a class="header__logo" href="/">
                     <!-- ヘッダーにロゴを挿入 -->
                     <img src="{{ asset('images/logo.svg') }}" alt="ロゴ" class="logo-image">
+                        @yield('header_flex')
 
                     @if (Auth::check())
                     <!-- ログアウトボタン -->

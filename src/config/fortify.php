@@ -8,7 +8,7 @@ return [
     'username' => 'email',
     'email' => 'email',
     'views' => true,
-    'home' => '/dashboard',
+    'home' => '/',
     'features' => [
         Features::registration(),
         Features::resetPasswords(),

@@ -6,12 +6,12 @@
 
 @section('content') <!--レイアウトの @yield('content') に差し込まれるメインコンテンツ。-->
     
-    <form action="{{ route('register.create') }}" method="post">    <!--web.php に定義された register.store ルートへPOST送信。通常は RegisterController@store() に対応。POSTメソッドはデータ登録に対応 -->
+    <form action="{{ route('register.create') }}" method="post" novalidate>    <!--web.php に定義された register.store ルートへPOST送信。通常は RegisterController@store() に対応。POSTメソッドはデータ登録に対応 -->
         @csrf
         <table>
             <th colspan=4><h2>会員登録</h2></th>
             <tr>
-                <td colspan =4><label>ユーザー名</label></td>
+                <td colspan =4 class="td"><label>ユーザー名</label></td>
             </tr>
             <tr>
                 <td colspan =4>
@@ -23,7 +23,7 @@
                     {{ $message }}
                     @enderror
             <tr>
-                <td colspan =4><label>メールアドレス</label></td>
+                <td colspan =4  class="td"><label>メールアドレス</label></td>
             </tr>
             <tr>
                 <!-- バリデーション名：email -->
@@ -33,7 +33,7 @@
                     {{ $message }}
                     @enderror
             <tr>
-                 <td colspan =4><label>パスワード</label></td>
+                 <td colspan =4  class="td"><label>パスワード</label></td>
             </tr>
             <tr>
                 <!-- バリデーション名：password -->
@@ -43,7 +43,7 @@
                     {{ $message }}
                     @enderror
             <tr> 
-                <td><label>確認用パスワード</label></td>
+                <td colspan =4 class="td"><label>確認用パスワード</label></td>
             </tr>
                 <!-- バリデーション名：password_confirmation（confirmedルールと連携）--> 
                 <td><input type ="password" name="password_confirmation" placeholder="12345abcde" value="{{ old('password_confirmation') }}" /></td>    <!--name="password_confirmation" → confirmed ルールと連携し、password と一致するかチェック。-->

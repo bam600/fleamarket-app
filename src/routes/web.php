@@ -11,7 +11,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 // PG01　商品一覧(トップ画面)-ログイン後*******************************************************************
 Route::get('/', [HomeController::class, 'index'])->name('home'); //ログイン
-Route::post('/',[HOmeController::class, 'store'])->name('goods.store');
+Route::post('/',[HomeController::class, 'store'])->name('goods.store');
 
 // PG03 会員登録画面**************************************************************************************
 /**
@@ -30,9 +30,17 @@ Route::get('/register', [RegisterController::class, 'show'])->name('register');
  */
 Route::post('/register', [RegisterController::class, 'store'])->name('register.create');
 
+// pG04 ログイン画面***************************************************************************************
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');   // ログイン
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);// ログイン処理（POST）
+
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');     // ログアウト
+
+// pG05 商品詳細画面***************************************************************************************
+Route::get('/item/{id}', [ItemController::class, 'details'])->name('details');
+Route::post('/item', [ItemController::class, 'store'])->name('item.store');
 
 // PG10　プロフィール編集画面*******************************************************************************
-
 /**
  * ユーザプロフィール編集するための画面を表示
  * /mypage/profileにアクセスすると
@@ -41,20 +49,5 @@ Route::post('/register', [RegisterController::class, 'store'])->name('register.c
  */
 Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');  //会員登録画面で登録後のリダイレクト先
 
-// プロフィール画面の登録するボタンを起動を押下したら実装
-Route::post('/mypage/profile', [ProfileController::class, 'profileS
-tore'])->name('profile.store');
+Route::post('/mypage/profile', [ProfileController::class, 'profilestore'])->name('profile.store'); // プロフィール画面の登録するボタンを起動を押下したら実装
 
-// pG05 商品詳細画面***************************************************************************************
-
-Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');
-Route::post('/item', [ItemController::class, 'store'])->name('item.store');
-
-// pG05 商品詳細画面***************************************************************************************
-
-
-
-// ログイン
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-// ログアウト
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
