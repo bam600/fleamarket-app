@@ -7,9 +7,9 @@
 */
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;    //Request：HTTPリクエストを受け取るため。
+use Illuminate\Http\Request;             //Request：HTTPリクエストを受け取るため。
 use Illuminate\Support\Facades\Auth;    //Auth：Laravelの認証ファサード。ログイン・ログアウト処理に使用
-use App\Http\Controllers\Controller;    //Laravelの基本コントローラークラス。これを継承して機能を拡張
+use App\Http\Controllers\Controller;   //Laravelの基本コントローラークラス。これを継承して機能を拡張
 
 
 class AuthenticatedSessionController extends Controller
@@ -43,24 +43,13 @@ class AuthenticatedSessionController extends Controller
 
     public function store(Request $request)
     {
-        // バリデーション　emaillとpasswordが空でないか正しいかチェック
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        // バリデーションは自動で実行される（rules()とmessages()が使われる）
 
-        /**認証
-         * Auth::attempt() でログイン試行。
-         * 成功すればセッションを再生成]
-         * リダイレクト→redirect()->intended('/') により
-         * 元々アクセスしようとしていたページ or / に遷移。
-         * Fortifyの 'home' => '/' 設定と連携。
-         */
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+            return redirect()->route('home'); // 商品一覧へ
         }
-        // ログイン失敗したらログイン画面に戻りメッセージ表示
+
         return back()->withErrors([
             'email' => 'ログイン情報が登録されていません',
         ]);

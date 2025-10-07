@@ -1,7 +1,5 @@
 /* メインコンテンツ(中身)専用*/
 
-
-
 .h2{
     font-family: 'Inter', sans-serif;
     font-size: 36px;
@@ -40,7 +38,7 @@ button {
     height: 70px;/* 高さを指定 */
     font-size: 24px;
     font-family: 'Inter', sans-serif;
-    color: white;
+    color: #5F5F5F;
     background-color: #FF5555;  /* 背景色 */
     border: none;   /* 枠線なし */
     display: block;
@@ -52,14 +50,13 @@ button {
 /* リンク専用 */
 .center-link {
     text-align: center;
-    text-decoration: none;   
+    text-decoration: none;
 }
 .center-link a {
     text-decoration: none;
     color:#0073CC;
     font-size: 24px;
     font-family: 'Inter', sans-serif;
-
 }
 
 .input-class{

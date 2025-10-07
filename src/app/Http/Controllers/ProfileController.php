@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Profile;
 use App\Http\Requests\ProfileRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -18,10 +19,15 @@ class ProfileController extends Controller
      * GETメソッドで　/mypage/profileにアクセスしたときに呼び出される
      * resources/views/mypage/profile.blade.php を表示。
     */
-    public function edit(){ 
-      // resources/views/mypage/profile.blade.phpを表示
-        return view('mypage.profile'); 
+   public function edit()
+    {
+      if (!Auth::check()) {
+        return redirect()->route('login')->withErrors(['auth' => 'ログインしてください']);
+      }
+        $user = Auth::user()->load('profile');
+        return view('mypage.profile', compact('user'));
     }
+
 
     /**
      * フォームのバリデーションルールを定義したクラス
@@ -39,31 +45,27 @@ class ProfileController extends Controller
      * withErrors()：フォームのエラーとしてメッセージを渡す。
      * 'user_name' => '...'：user_name フィールドに対してエラーを表示。
      */
-    $user = User::where('user_name', $request->user_name)->first();
+    $user = Auth::user()->load('profile');// ログインユーザー取得
 
-      if (!$user) {
-        return redirect()->back()->withErrors(['user_name' => 'ユーザーが見つかりませんでした。']);
-      }
-      
-      $userId = $user->id; //データが存在したらそのidを$userIdに代入
+    // ユーザーネームを更新
+    $user->update([
+        'user_name' => $request->user_name,
+    ]);
 
-    /**登録するボタンを押下したときに実装
-     * Profileモデル：新しいレコードを追加
-     * create():渡されたデータを使って1件の新しいプロフィールを保存
-     */
-    Profile::create([
-        // 'imagePath' => $imagePath,
-        // $userId:プロフィールがどのユーザーのものか
-        'user_id' => $userId, 
-        // $request->postal_code:入力された郵便番号
-        'postal_code' => $request->postal_code, 
-        //$request->address:入力された住所
-        'address' => $request->address,
-        //$request->building:入力された建物名
-        'building' => $request->building,
-      ]);
-    //登録が終わったらindexのルートに移動する
-    return redirect()->route('home'); 
-   }
+    // プロフィールの更新 or 作成(firstOrNew)
+    $profile = Profile::firstOrNew(['user_id' => $user->id]);
+    $isNew = !$profile->exists;
+    $profile->user_id = $user->id; // 明示的に設定
+    $profile->postal_code = $request->postal_code;
+    $profile->address     = $request->address;
+    $profile->building    = $request->building;
+    $profile->save();
+
+
+    // 遷移先を分岐
+    return $isNew
+    ? redirect()->route('item.index')
+    : redirect()->route('mypage');
+  }
 
 }

@@ -7,47 +7,43 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\MypageController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 // PG01　商品一覧(トップ画面)-ログイン後*******************************************************************
-Route::get('/', [HomeController::class, 'index'])->name('home'); //ログイン
-Route::post('/',[HomeController::class, 'store'])->name('goods.store');
+ //get:ログイン後の商品一覧を表示
+Route::get('/', [ItemController::class, 'index'])->name('item.index');
 
 // PG03 会員登録画面**************************************************************************************
-/**
- * Route::get():HTTP GETメソッドでアクセスされたときのルート定義
- * /register':ブラウザでアクセスするURL（例：http://localhost/register）
- * [RegisterController::class, 'show']:RegisterController の show() メソッドを呼び出す
- * ->name('register'):このルートに register という名前を付ける（Bladeなどで使える）
- */
+// get:会員登録フォームを表示(showは表示という責務が明確)
 Route::get('/register', [RegisterController::class, 'show'])->name('register'); 
-
-/**
- * Route::post():HTTP POSTメソッドでアクセスされたときのルート定義
- * /register':フォーム送信先のURL（GETと同じURLでもメソッドが違う）
- * [RegisterController::class, 'store']:RegisterController の store() メソッドを呼び出す
- * ->name('register.store'):このルートに register.store という名前を付ける
- */
+// フォーム送信後ユーザー情報を保存(storeは保存という責務が明確)
 Route::post('/register', [RegisterController::class, 'store'])->name('register.create');
 
 // pG04 ログイン画面***************************************************************************************
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');   // ログイン
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);// ログイン処理（POST）
-
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');     // ログアウト
+// ログインフォーム表示
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+// ログイン処理(認証)
+Route::post('/login', [LoginController::class, 'store'])->name('login.store'); 
+// ログアウト処理
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');    
 
 // pG05 商品詳細画面***************************************************************************************
-Route::get('/item/{id}', [ItemController::class, 'details'])->name('details');
+// GET /item/{id}：商品詳細ページを表示。{id} は商品ID。
+Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');
+// POST /item：商品登録や編集などの処理（出品機能など）
 Route::post('/item', [ItemController::class, 'store'])->name('item.store');
 
-// PG10　プロフィール編集画面*******************************************************************************
-/**
- * ユーザプロフィール編集するための画面を表示
- * /mypage/profileにアクセスすると
- * ProfileController の edit()メソッドが呼び出され
- * view('mypage.profile') などのBladeテンプレートが表示される
- */
-Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');  //会員登録画面で登録後のリダイレクト先
+// PG09　プロフィール画面*******************************************************************************
+// GET /mypage：プロフィール編集画面を表示。(editは表示の責務)
+Route::get('/mypage', [MypageController::class, 'mypage'])->name('mypage');  //会員登録画面で登録後のリダイレクト先
 
+// POST /mypage：編集内容を保存。
+Route::post('/mypage', [MypageController::class, 'profilestore'])->name('profile.store'); // プロフィール画面の登録するボタンを起動を押下したら実装
+
+// PG10　プロフィール登録画面*******************************************************************************
+// GET /mypage/profile：プロフィール編集画面を表示。(editは表示の責務)
+Route::get('/mypage/profile', [ProfileController::class, 'edit'])->middleware('auth')->name('profile.edit');  //会員登録画面で登録後のリダイレクト先
+
+// POST /mypage/profile：編集内容を保存。
 Route::post('/mypage/profile', [ProfileController::class, 'profilestore'])->name('profile.store'); // プロフィール画面の登録するボタンを起動を押下したら実装
-

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -10,10 +11,8 @@ class HomeController extends Controller
     
    public function index()
 {
-    return view('home'); // 必要に応じてBladeファイルも作成
-}
-    public function store(){
-        
-        return redirect()->route('item.show');
+        //Productsテーブルからデータを取得
+        $products = Product::all(); //登録されてるすべてのデータを取得
+        return view('home', compact('products')); // home.blade.phpを表示、変数$productsをビューに渡す(連想配列)
     }
 }

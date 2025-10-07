@@ -40,7 +40,7 @@ class FortifyServiceProvider extends ServiceProvider
             $user = User::where('email', $request->email)->first();
 
             if ($user && Hash::check($request->password, $user->password)) {
-            return $user; // ✅ これが正しい戻り値
+            return $user; // これが正しい戻り値
     }
     return null; // 認証失敗
 });

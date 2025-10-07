@@ -20,7 +20,7 @@ class LoginController extends Controller
 
     // POST /login に送信されたフォームデータを受け取るメソッド。
     //LoginRequest によって、バリデーションは事前に済んだ状態で呼び出されます。
-    public function loginstore(LoginRequest $request)
+    public function store(LoginRequest $request)
     {
         //フォームから送られた email と password を抽出
         // only() は指定したキーだけを取り出す Laravel の便利メソッド
@@ -34,7 +34,7 @@ class LoginController extends Controller
         }
         // 認証失敗時の処理(登録情報と異なる)
         return back()->withErrors([
-            'email' => 'ログイン情報が登録されていません',
+            'auth' => 'ログイン情報が登録されていません',
         ])->withInput();
     }
 }

@@ -4,9 +4,8 @@
 
 @section('content')
 
-
     <!-- /loginがフォーム送信先でPOSTメソッドで/loginに送信 -->
-    <form action="{{ route('login') }}" method="POST">
+    <form action="{{ route('login.store') }}" method="POST">
         @csrf
     <table>
         <th colspan=4><h2>ログイン</h2></th>
@@ -15,24 +14,45 @@
     </tr>
     <tr>    
         <!-- バリデーション名：email -->
-        <td colpspan = 4><input type ="email" name="email" placeholder="1234@gmail.com" value="{{ old('email') }}" /></td>
+        <td colspan = 4><input type ="text" name="email" placeholder="1234@gmail.com" value="{{ old('email') }}" /></td>
     </tr>
+    <tr>
+        <td colspan="4">
             <!-- エラーメッセージ -->
             @error('email')
-            {{ $message }}
+               <span class="error"> {{ $message }}</span>
             @enderror
+        </td>
+    </tr>
+
     <tr>
     <td colspan=4  class="td"><label>パスワード</label></td>
     </tr>
 
     <tr>
         <!-- バリデーション名：password -->
-        <td colspan=4><input type ="password" name="password" placeholder="12345abcde" value="{{ old('password') }}"/></td>
+        <td colspan=4><input type ="password" name="password" placeholder="12345abcde" /></td>
     </tr>
+    <tr>
+        <td colspan="4">
             <!-- エラーメッセージ -->
             @error('password')
-            {{ $message }}
+                <span class="error"> {{ $message }}</span>
             @enderror
+        </td>
+    </tr>
+        </tr>
+    <tr>
+        <td colspan="4">
+            <!-- エラーメッセージ -->
+            @error('auth')
+                <span class="error"> {{ $message }}</span>
+            @enderror
+        </td>
+    </tr>
+
+
+
     <tr>
         <!-- button：フォーム送信ボタン ログインするボタンを押下するとform実装-->
         <td colspan=4 ><button type="submit">ログインする</button></td>

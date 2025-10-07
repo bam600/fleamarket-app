@@ -26,17 +26,14 @@ class ProfileRequest extends FormRequest
      */
     public function rules()
     {
+        $userId = $this->user()->id ?? null;
+
         return [
-            // 'image' =>[
-            //     'required', // アップロード必須なら
-            //     'image',    // 画像ファイルであること
-            //     'mimes:jpeg,png', // 許可する拡張子
-            // ],
-            'user_name'   => ['required', 'exists:users,user_name','max:20'],
+            'user_name' => ['required', 'max:20', 'unique:users,user_name,' . $userId],
             'postal_code' => ['required','regex:/^\d{3}-\d{4}$/'],
             'address'     => ['required'],
             'building'    => ['nullable'],
-    ];
+        ];
 
     }
 
