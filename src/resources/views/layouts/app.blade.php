@@ -14,7 +14,9 @@
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/index.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/contents.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/product_img.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/product_img.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/header_title.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/sell.css') }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gorditas:wght@400;700&family=Noto+Sans+JP:wght@810&display=swap" rel="stylesheet">
@@ -23,34 +25,32 @@
     <!-- ページの表示内容(本文の開始=>bodyタグ) -->
 <body>
     <header class="header">
-        <div class="header__logo-fixed">
 
-            <a href="/" class="header__logo">
-                <img src="{{ asset('images/logo.svg') }}" alt="ロゴ" class="logo-image">
-            </a>
+        <!-- coachtechロゴ -->
+        <a href="/" class="header__logo">
+            <img class="logo-image" src="{{ asset('images/logo.svg') }}" alt="ロゴ">
+        </a>
 
-            @if(Auth::check() && !Request::is('register') && !Request::is('login'))
-                <div class="header__inner">
-                    <div class="flex">
-                        <div class="search-box">
-                            <!--Laravelのルート名 item.index に送信 -->
-                            <form method="GET" action="{{ route('item.index') }}">
-                                <!-- 検索キーワードを保持（再表示時に便利） -->
-                                <input type="text" name="search" value="{{ $keyword ?? '' }}" />
-                            </form>
-                        </div>
-
-                        <div class="header-actions">
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button class="header_logout" type="submit">ログアウト</button>
-                            </form>
-
-                            <a class="header-link" href="{{ route('login') }}">マイページ</a>
-                            <a class="header-link header-button" href="{{ route('login') }}">出品する</a>
-                        </div>
-                    </div>
+        <!-- ログイン済みまたは会員登録画面ではないまたはログイン画面ではなない場合の条件分岐 -->
+        @if(Auth::check() || !Request::is('register') || !Request::is('login'))
+            <div class="header__inner">
+                <div class="flex">
+                    <!--Laravelのルート名 item.index に送信 -->
+                    <form method="GET" action="{{ route('item.index') }}">
+                        <!-- 検索キーワードを保持（再表示時に便利） -->
+                        <input type="text" name="search"  value="{{ $keyword ?? '' }}"  placeholder="検索内容を入力してください"  />
+                    </form>
                 </div>
+ 
+                <div class="header-actions">
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button class="header_logout" type="submit">ログアウト</button>
+                    </form>
+                        <a class="header-link" href="{{ route('login') }}">マイページ</a>
+                        <a class="header-link header-button" href="{{ route('item.create') }}">出品する</a>
+                </div>
+            </div>
             @endif
 
 

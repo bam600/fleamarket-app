@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MypageController;
+use App\Http\Controllers\CreateController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 // PG01　商品一覧(トップ画面)-ログイン後*******************************************************************
@@ -47,3 +48,9 @@ Route::get('/mypage/profile', [ProfileController::class, 'edit'])->middleware('a
 
 // POST /mypage/profile：編集内容を保存。
 Route::post('/mypage/profile', [ProfileController::class, 'profilestore'])->name('profile.store'); // プロフィール画面の登録するボタンを起動を押下したら実装
+
+//PG08 商品出品画面(ログイン認証されている場合可能)************************************************************************
+Route::middleware('auth')->group(function () {
+Route::get('/sell', [CreateController::class, 'create'])->name('item.create'); 
+Route::post('/sell', [CreateController::class, 'store'])->name('item.store'); 
+});

@@ -31,7 +31,7 @@
             @foreach($products as $product)
                 <div>
                 <!--<a>タグで画像を囲みクリックで詳細ページへ遷移route('details', ['id' => $product->id]) は /item/{id} に対応-->
-                    <a href="{{ route('details', ['id' => $product->id]) }}">
+                    <a href="{{ route('item.show', ['id' => $product->id]) }}">
                     <!--image_path は画像ファイルのURL、product_name は商品名-->
                         <img src="{{ $product->image_path }}" alt="{{ $product->product_name }}" class="item_img">
                     </a>

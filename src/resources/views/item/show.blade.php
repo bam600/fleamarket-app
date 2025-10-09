@@ -7,28 +7,6 @@
     <link rel="stylesheet" href="{{ asset('css/details.css') }}">
 @endsection
 
-@section('header_flex') <!--header：レイアウト部分-->
-
-<div class="flex">
-    <div class="search-box">
-        <!--Laravelのルート名 item.index に送信 -->
-        <form method="GET" action="{{ route('item.index') }}">
-            <!-- 検索キーワードを保持（再表示時に便利） -->
-            <input type="text" name="search" value="{{ $keyword ?? '' }}" />
-        </form>
-    </div>
-    <div class="header-actions">
-        
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button class="header_logout" type="submit">ログアウト</button>
-        </form>
-        <a class="header-link" href="{{ route('login') }}">マイページ</a>
-        <a class="header-link header-button" href="{{ route('login') }}">出品する</a>
-    </div>
-</div>
-@endsection
-
 @section('content')
  <div class ="centered">
     <div class="product-detail">
@@ -37,7 +15,6 @@
         <p><img class = "product_img" src="{{ $product->image_path }}" alt="{{ $product->product_name }}"/></p>
     </div>
     
-   
     <div class ="product-text">
         <!-- 商品名 -->
         <p><span class ="contents1">{{$product->product_name}}</span></p>
