@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <form action="{{ route('profile.store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
          @csrf 
         <table>
             <th colspan=4><h2>プロフィール設定</h2></th>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Product;
+use App\Models\Exhibition;
 
 class HomeController extends Controller
 {
@@ -11,8 +11,10 @@ class HomeController extends Controller
     
    public function index()
 {
-        //Productsテーブルからデータを取得
-        $products = Product::all(); //登録されてるすべてのデータを取得
-        return view('home', compact('products')); // home.blade.phpを表示、変数$productsをビューに渡す(連想配列)
+        // Exhibitionテーブルから出品情報と関連画像を取得(リレーション)
+        $exhibitions = Exhibition::get();
+
+        // home.blade.php に $exhibitions を渡して表示
+        return view('home', compact('exhibitions'));
     }
 }

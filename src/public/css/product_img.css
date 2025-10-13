@@ -80,6 +80,7 @@ button.header_logout { /* ヘッダーのボタン用 */
         justify-content: center;
     }
 
+    /* profileボタン */
     .profile_link{
         color: red;
         display: inline-block;
@@ -88,9 +89,8 @@ button.header_logout { /* ヘッダーのボタン用 */
         width:200px;
         margin-bottom: 60px;
         border: 1px solid red;  /* 太さ・線種・色 */
-
     }
-
+    /* profileボタンテキスト設定 */
     .profile_text{
         font-size: 18px;
         color: red;
@@ -99,7 +99,8 @@ button.header_logout { /* ヘッダーのボタン用 */
         display: inline-block;
         text-align: center;
         width: 100%;
-        margin-top: 10px;
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
 }
 

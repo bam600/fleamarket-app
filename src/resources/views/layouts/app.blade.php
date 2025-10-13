@@ -25,7 +25,6 @@
     <!-- ページの表示内容(本文の開始=>bodyタグ) -->
 <body>
     <header class="header">
-
         <!-- coachtechロゴ -->
         <a href="/" class="header__logo">
             <img class="logo-image" src="{{ asset('images/logo.svg') }}" alt="ロゴ">
@@ -47,7 +46,7 @@
                         @csrf
                         <button class="header_logout" type="submit">ログアウト</button>
                     </form>
-                        <a class="header-link" href="{{ route('login') }}">マイページ</a>
+                        <a  class ="header-link" href="{{ route('mypage')}}">マイページ</a>
                         <a class="header-link header-button" href="{{ route('item.create') }}">出品する</a>
                 </div>
             </div>

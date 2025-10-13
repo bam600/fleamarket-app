@@ -9,11 +9,12 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\CreateController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 // PG01　商品一覧(トップ画面)-ログイン後*******************************************************************
  //get:ログイン後の商品一覧を表示
-Route::get('/', [ItemController::class, 'index'])->name('item.index');
+Route::get('/', [HomeController::class, 'index'])->name('item.index');
 
 // PG03 会員登録画面**************************************************************************************
 // get:会員登録フォームを表示(showは表示という責務が明確)
@@ -34,23 +35,27 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name
 Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');
 // POST /item：商品登録や編集などの処理（出品機能など）
 Route::post('/item', [ItemController::class, 'store'])->name('item.store');
+// いいねボタン
+Route::post('/item/{id}', [LikeController::class, 'store'])->name('like.store');
+Route::delete('/item/{id}', [LikeController::class, 'destroy'])->name('like.destroy');
+
+
 
 // PG09　プロフィール画面*******************************************************************************
 // GET /mypage：プロフィール編集画面を表示。(editは表示の責務)
-Route::get('/mypage', [MypageController::class, 'mypage'])->name('mypage');  //会員登録画面で登録後のリダイレクト先
-
-// POST /mypage：編集内容を保存。
-Route::post('/mypage', [MypageController::class, 'profilestore'])->name('profile.store'); // プロフィール画面の登録するボタンを起動を押下したら実装
+Route::get('/mypage', [MypageController::class, 'index'])->middleware('auth')->name('mypage'); //会員登録画面で登録後のリダイレクト先
 
 // PG10　プロフィール登録画面*******************************************************************************
 // GET /mypage/profile：プロフィール編集画面を表示。(editは表示の責務)
 Route::get('/mypage/profile', [ProfileController::class, 'edit'])->middleware('auth')->name('profile.edit');  //会員登録画面で登録後のリダイレクト先
 
 // POST /mypage/profile：編集内容を保存。
-Route::post('/mypage/profile', [ProfileController::class, 'profilestore'])->name('profile.store'); // プロフィール画面の登録するボタンを起動を押下したら実装
+Route::post('/mypage/profile', [ProfileController::class, 'update'])->middleware('auth')->name('profile.update'); // プロフィール画面の登録するボタンを起動を押下したら実装
 
 //PG08 商品出品画面(ログイン認証されている場合可能)************************************************************************
 Route::middleware('auth')->group(function () {
 Route::get('/sell', [CreateController::class, 'create'])->name('item.create'); 
 Route::post('/sell', [CreateController::class, 'store'])->name('item.store'); 
 });
+
+

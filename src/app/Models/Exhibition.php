@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Condition;
+use App\Models\Like;
 
 // Exhibitionクラスはlaravelのmodelクラスを継承
 class Exhibition extends Model
@@ -12,13 +14,43 @@ class Exhibition extends Model
     use HasFactory;
 
     // fillable：ホワイトリスト方式で一括代入許可フィールドの定義
-    protected $fillable = ['product_name', 'brand','condition_id','description','price','status','user_id' ];
+    protected $fillable = 
+                ['product_name', 
+                    'brand',
+                    'condition_id',
+                    'description',
+                    'price',
+                    'status',
+                    'user_id',
+                    'img' 
+                ];
+
+    // 商品カテゴリーテーブルとのリレーション設定
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    // app/Models/Exhibition.php
+    public function condition()
+    {
+        return $this->belongsTo(Condition::class);
+    }
+
+    // いいねテーブルとのリレーション(1対多)
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function isLikedBy($user)
+    {
+        return $this->likes->contains('user_id', $user->id);
+    }
 
     public function categories()
     {
-    return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class);
     }
 
-
 }
-

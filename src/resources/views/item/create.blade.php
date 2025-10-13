@@ -1,3 +1,6 @@
+{{-- PG08:商品出品画面--}}
+
+{{--layouts.appをベースレイアウトとして継承--}}
 @extends('layouts.app')
 
 @section('title', '商品出品')
@@ -12,26 +15,22 @@
     @csrf
 <div class="centered">
     <div class="product-detail">
-        <class="product-image">s
+        <div class="product-image">
             <h1 class="category-title">商品の出品</h1>
             <h4 class="category-title">商品画像</h4>
             <h2 class="category-title">商品の詳細</h2>
             <h3 class="category-title">カテゴリー</h3>
             <div class="category-buttons product-grid">
-            @foreach($categories as $category)
-                <input type="checkbox" id="cat{{ $category->id}}" name="categories[]" value="{{ $category->id }}"
-                {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}>
-                <label for="cat{{ $category->id }}" class="category-button">
-                 {{ $category->name }}
-                </label>
-            @endforeach
+            @error('categories')
+                <div class="error">{{ $message }}</div>
+            @enderror
 
             @foreach ($errors->get('categories.*') as $messages)
                 @foreach ($messages as $message)
                     <div class="error">{{ $message }}</div>
                 @endforeach
             @endforeach
-    </div>            
+    </div>         
 </div>
 
             <h3 class="category-title">商品の状態</h3>
@@ -51,8 +50,7 @@
             <h2 class="category-title">商品と説明</h2>
 
             <h3 class="category-title">商品名</h3>
-                <p><input type ="text" name="product_name" placeholder="商品名を入力してください" value="{{ old('product_name') }}
-                " />
+            <p><input type ="text" name="product_name" placeholder="商品名を入力してください" value="{{ old('product_name') }}" />
                     @error('product_name')
                         <div class="error">{{ $message }}</div>
                     @enderror
@@ -64,7 +62,6 @@
                             <div class="error">{{ $message }}</div>
                          @enderror
             </p>
-
             <h3 class="category-title">商品の説明</h3>
                 <textarea name="description" class="description-box">{{ old('description') }}</textarea>
                         @error('description')

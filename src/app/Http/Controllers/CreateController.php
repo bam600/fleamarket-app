@@ -18,8 +18,12 @@ class CreateController extends Controller
         $categories = Category::all(); 
         // 商品状態一覧の取得(セレクトボックス表示表)
         $conditions = Condition::all();
+
+        // 新規出品用の空のExhibitionインスタンスを渡す
+        $exhibition = new Exhibition();
+
         // 取得した値を返す
-        return view('item.create', compact('categories', 'conditions'));
+        return view('item.create', compact('exhibition', 'conditions', 'categories'));
     }
 
     // storeメソッド
@@ -47,4 +51,5 @@ class CreateController extends Controller
         return redirect()->route('mypage')
           ->with('status', '商品を出品しました。'); 
     }
+
 }

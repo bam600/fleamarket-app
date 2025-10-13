@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\Exhibition;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,7 +34,7 @@ class ProfileController extends Controller
      * フォームのバリデーションルールを定義したクラス
      * バリデーション通以下したデータのみ$requestに渡される
      */
-    public function profileStore(ProfileRequest $request) //プロフィール情報の保存（POST）
+    public function update(ProfileRequest $request) //プロフィール情報の保存（POST）
    {
 
     /**
@@ -68,4 +69,17 @@ class ProfileController extends Controller
     : redirect()->route('mypage');
   }
 
+  public function show()
+    {
+        $user = Auth::user();
+
+        // ログインユーザーが出品した商品を取得
+        $exhibitions = Exhibition::with('images')
+            ->where('user_id', $user->id)
+            ->get();
+
+        return view('mypage', compact('exhibitions'));
+    }
 }
+
+

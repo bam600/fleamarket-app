@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Exhibition;
 
 class Condition extends Model
 {
@@ -11,8 +12,8 @@ class Condition extends Model
 
     protected $fillable = ['code', 'label'];
 
-    public function products()
+    public function exhibitions()
     {
-        return $this->hasMany(Product::class);
+    return $this->hasMany(Exhibition::class);
     }
 }

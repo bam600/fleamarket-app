@@ -10,4 +10,9 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = ['id','name','slug']; // 必要に応じて追加
+
+    public function exhibitions()
+    {
+        return $this->hasMany(Exhibition::class);
+    }
 }
