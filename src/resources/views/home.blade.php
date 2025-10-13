@@ -10,8 +10,8 @@
 @section('content') 
     <div class="tab-buttons">
         <form method="GET" action="{{ route('item.index') }}">
-            <input type="hidden" name="tab" value="recommend">
-            <button type="submit" class="@if(request('tab') === 'recommend') active-button @else normal-button @endif">
+            <input type="hidden" name="tab" value="mylist">
+            <button type="submit" class="@if(request('tab') === 'mylist') active-button @else normal-button @endif">
                 おすすめ
             </button>
         </form>
