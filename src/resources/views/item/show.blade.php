@@ -1,73 +1,58 @@
-{{-- PG05:商品詳細画面--}}
-
-{{--layouts.appをベースレイアウトとして継承--}}
 @extends('layouts.app') 
 
-{{--タイトルタグの設定--}}
 @section('title', '商品詳細')
 
-{{--商品詳細用のCSSを読み込む---}}
 @section('head')
     <link rel="stylesheet" href="{{ asset('css/details.css') }}">
 @endsection
 
 @section('content')
- <div class ="centered">
+<div class="centered">
     <div class="product-detail">
-    <div class="product-image">
-        {{-- 商品画像を表示 --}}
-        <p><img class = "product_img" src="{{ $exhibition->img }}" alt="{{ $exhibition->product_name }}"/></p>
-    </div>
-    
-    <div class ="product-text">
-        {{-- 商品名--}}
-        <p><span class ="contents1">{{$exhibition->product_name}}</span></p>
-        {{-- ブランド名--}}
-        <p><span class ="contents3 ">{{$exhibition->brand}}</span></p>
-        {{-- 価格(number_format:カンマ表記) --}}
-        <p><span class ="contents4">￥{{ number_format($exhibition->price) }}(税込み)</span></p>
+        <div class="product-image">
+            <p><img class="product_img" src="{{ $exhibition->img }}" alt="{{ $exhibition->product_name }}"/></p>
+        </div>
 
-        {{-- いいねカウント--}}
-        {{--ログイン済みのユーザのみ処理--}}
-        @auth
-            {{--もし、今ログインしているユーザがいいねしたら--}}
-            @if($exhibition->isLikedBy(Auth::user()))
-                {{--いいね削除用メソッドをidを渡し、like.destroy'にアクセス--}}
-                <form method="POST" action="{{ route('like.destroy', $exhibition->id) }}">
+        <div class="product-text">
+            <p><span class="contents1">{{ $exhibition->product_name }}</span></p>
+            <p><span class="brand_name">{{ $exhibition->brand }}</span></p>
+            <p><span class="contents4">￥{{ number_format($exhibition->price) }} (税込み)</span></p>
+
+            {{-- いいねボタン --}}
+            @auth
+                @if($exhibition->isLikedBy(Auth::user()))
+                    <form method="POST" action="{{ route('like.destroy', $exhibition->id) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">★ いいね</button>
+                    </form>
+                @else
+                    <form method="POST" action="{{ route('like.store', $exhibition->id) }}">
+                        @csrf
+                        <button type="submit">☆ いいね</button>
+                    </form>
+                @endif
+                <p>いいね数：{{ $exhibition->likes_count ?? 0 }}</p>
+            @endauth
+
+            {{-- 購入手続きボタン（独立フォーム） --}}
+            <form method="POST" action="{{ route('item.prepare') }}">
                 @csrf
-                    {{--POSTメソッドをDELETEに変換--}}
-                    @method('DELETE')
-                    {{--★状態でいいねボタンをおすと解除--}}
-                    <button type="submit">★ いいね</button>
-                </form>
-            @else
-                {{--いいねしてない場合はlike.storeにアクセスしていいね登録--}}
-                <form method="POST" action="{{ route('like.store', $exhibition->id) }}">
-                @csrf
-                    {{--☆の状態でボタンを押すといいね登録--}}
-                    <button type="submit">☆ いいね</button>
-                    {{--いいねカウント--}}
-                    <p>{{ $exhibition->likes->count() }}</p>
-                </form>
-            @endif
-        @endauth
+                <input type="hidden" name="id" value="{{ $exhibition->id }}">
+                <button type="submit">購入手続きへ</button>
+            </form>
 
-
-        <p><button type="submit">購入手続きへ</button></P>
-        <p><label class ="contents2">商品説明</label></p>
-        <p><span class ="contents5">{{$exhibition->description}}</span></p> 
-        <p><label class ="contents2">商品情報</label></p>
-        <p><label class ="contents5">カテゴリー</label>
-                @foreach($categories as $category)
-                    <p>{{$category->name}}</p>
-                @endforeach
-        <span></span></p>
-        <p><label class ="contents5">商品の状態</label></p>
-        <p><span>{{ $exhibition->condition->label }}</span></P>
-
-        {{-- ログイン画面へリン既存ユーザー向けの動線 --}}
+            {{-- 商品説明・情報 --}}
+            <p><label class="contents2">商品説明</label></p>
+            <p><span class="contents5">{{ $exhibition->description }}</span></p>
+            <p><label class="contents2">商品情報</label></p>
+            <p><label class="contents5">カテゴリー</label></p>
+            @foreach($categories as $category)
+                <p>{{ $category->name }}</p>
+            @endforeach
+            <p><label class="contents5">商品の状態</label></p>
+            <p><span>{{ $exhibition->condition->label }}</span></p>
+        </div>
     </div>
-    </div>
-    </div>
+</div>
 @endsection
- 

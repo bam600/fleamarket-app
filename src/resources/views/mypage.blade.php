@@ -8,12 +8,13 @@
 
 @section('content') 
     {{-- profile編集画面リンクボタン --}}
+    <p>{{ Auth::user()->user_name }}</p>
     <div class="tab-buttons">
         <div class="profile_link">
             {{-- 実施のリンク箇所 (Profile.edit=プロフィール編集画面)--}}
             <a class="profile_text" href="{{ route('profile.edit') }}">プロフィール選択</a>
         </div>
-
+        
         {{--mapageルートにGETリクエストを送るフォーム--}}
         <form method="GET" action="{{ route('mypage') }}"> 
             {{--URLに?page=sellを含める(タブ切り替え用)--}}
@@ -45,8 +46,9 @@
             @foreach ($exhibitions as $exhibition)
                 <div class="exhibition-card">
                 {{--商品名を表示--}}    
-                <h4>{{ $exhibition->product_name }}</h4>
+                    <a href="{{ route('item.show', ['id' => $exhibition->id]) }}">
                 <h4> <img src="{{ asset($exhibition->img) }}" alt="{{ $exhibition->product_name }}" class="item_img"></h4>
+                    <p>{{ $exhibition->product_name }}</p>
                 </div>
             @endforeach
 

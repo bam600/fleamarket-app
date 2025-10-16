@@ -43,14 +43,19 @@ class Exhibition extends Model
         return $this->hasMany(Like::class);
     }
 
-    public function isLikedBy($user)
-    {
-        return $this->likes->contains('user_id', $user->id);
-    }
+public function isLikedBy($user)
+{
+    return $this->likes()->where('user_id', $user->id)->exists();
+}
 
     public function categories()
     {
         return $this->belongsToMany(Category::class);
     }
 
+        public function confirm(Request $request)
+    {
+        // 処理内容
+    }
 }
+

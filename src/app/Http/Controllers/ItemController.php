@@ -12,12 +12,16 @@ class ItemController extends Controller
     // 商品詳細画面
     public function show($id)
     {
-        $exhibition = Exhibition::with(['categories', 'condition', 'likes'])->findOrFail($id);
-        $categories = $exhibition->categories;
-            return view('item.show', compact('exhibition','categories'));
+        $exhibition = Exhibition::with(['categories', 'condition'])
+                         ->withCount('likes')
+                         ->findOrFail($id);
 
-        
-    }   
+        $categories = $exhibition->categories;
+
+      return view('item.show', compact('exhibition', 'categories')); //  ここが 'item.show' であること
+}
+
+
     // 商品一覧・検索
     public function index(Request $request)
     {
@@ -42,4 +46,21 @@ class ItemController extends Controller
         return view('home', compact('exhibitions', 'keyword', 'tab'));
     }
 
+    public function preparePurchase($id)
+    {
+    $exhibition = Exhibition::findOrFail($id);
+
+    // 購入に必要な情報だけセッションに保存
+    session([
+        'selected_exhibition' => [
+            'id' => $exhibition->id,
+            'product_name' => $exhibition->product_name,
+            'price' => $exhibition->price,
+        ]
+    ]);
+
+    session()->save(); // セッション保存を明示
+
+    return redirect()->route('item.purchase.confirm');
+    }
 }

@@ -24,37 +24,29 @@
 </head>
     <!-- ページの表示内容(本文の開始=>bodyタグ) -->
 <body>
-    <header class="header">
-        <!-- coachtechロゴ -->
+ <header class="header">
+    <div class="header__inner">
         <a href="/" class="header__logo">
             <img class="logo-image" src="{{ asset('images/logo.svg') }}" alt="ロゴ">
         </a>
 
-        <!-- ログイン済みまたは会員登録画面ではないまたはログイン画面ではなない場合の条件分岐 -->
-        @if(Auth::check() || !Request::is('register') || !Request::is('login'))
-            <div class="header__inner">
-                <div class="flex">
-                    <!--Laravelのルート名 item.index に送信 -->
-                    <form method="GET" action="{{ route('item.index') }}">
-                        <!-- 検索キーワードを保持（再表示時に便利） -->
-                        <input type="text" name="search"  value="{{ $keyword ?? '' }}"  placeholder="検索内容を入力してください"  />
-                    </form>
-                </div>
- 
-                <div class="header-actions">
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button class="header_logout" type="submit">ログアウト</button>
-                    </form>
-                        <a  class ="header-link" href="{{ route('mypage')}}">マイページ</a>
-                        <a class="header-link header-button" href="{{ route('item.create') }}">出品する</a>
-                </div>
+        @if(Auth::check() && !Request::is('register') && !Request::is('login'))
+            <div class="flex">
+                <form method="GET" action="{{ route('item.index') }}">
+                    <input type="text" name="search" value="{{ $keyword ?? '' }}" placeholder="検索内容を入力してください" />
+                </form>
             </div>
-            @endif
 
-
-  
-    </header>
+            <div class="header-actions">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button class="header_logout" type="submit">ログアウト</button>
+                </form>
+                <a class="header-link" href="{{ route('mypage') }}">マイページ</a>
+                <a class="header-link header-button" href="{{ route('item.create') }}">出品する</a>
+            </div>
+        @endif
+    </div>
 
     <main>
         @yield('content')
