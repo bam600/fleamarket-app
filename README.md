@@ -19,34 +19,40 @@ docker-compose.ymlファイルを編集してください。
     6.php artisan db:seed
     
 ## _laravel fortifyの導入_
-    1 docoker-compose exec php bash
-    2 composer require laravel/fortify
-    3 config/app.phpにApp\Providers\FortifyServiceProvider::class,を追加
-    4 php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
-    5 App\Providers\FortifyServiceProvider.phpに
+    1.docoker-compose exec php bash
+    2.composer require laravel/fortify
+    3.config/app.phpにApp\Providers\FortifyServiceProvider::class,を追加
+    4.php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
+    5.App\Providers\FortifyServiceProvider.phpに
         Fortify::loginView(fn () => view('auth.login'));
         Fortify::registerView(fn () => view('auth.register'));をついか
     ＊必要に応じてルーティングやビューを調整
 
 
 ## _使用技術(実行環境)_
-    ###フレームワーク・ライブラリ
-            - Laravel 10.x
-            - Laravel Fortify（認証機能）
-            - Blade（テンプレートエンジン）
-            - Eloquent ORM（リレーション設計）
-    ###フロントエンド
-            - HTML / CSS（基本構造とスタイル）
-            - Blade（Laravelのテンプレートエンジン）
-
-    ###データベース
-            - MySQL 8.x
-            - Laravel Migration / Seeder / Factory（スキーマ・テストデータ管理）
-    ###開発ツール
-            - Visual Studio Code（推奨IDE）
-            - Laravel Artisan CLI（開発支援コマンド）
-            - Git（バージョン管理）
+### フレームワーク・ライブラリ
+    - Laravel 10.x
+    - Laravel Fortify（認証機能）
+    - Blade（テンプレートエンジン）
+    - Eloquent ORM（リレーション設計）
+### フロントエンド
+    - HTML / CSS（基本構造とスタイル）
+    - Blade（Laravelのテンプレートエンジン）
+### データベース
+    - MySQL 8.x
+    - Laravel Migration / Seeder / Factory（スキーマ・テストデータ管理）
+### 開発ツール
+    - Visual Studio Code（推奨IDE）
+    - Laravel Artisan CLI（開発支援コマンド）
+    - Git（バージョン管理）
 
 ## _ER 図_
 
 ## _URL_
+### 開発環境（ローカル）  
+  `http://localhost:8000`  
+  ＊docker-compose 実行後、Nginx/PHPコンテナが起動している状態でアクセス可能です。
+
+### 認証画面（Fortify）  
+  - ログイン：`http://localhost:8000/login`  
+  - 登録：`http://localhost:8000/register`
