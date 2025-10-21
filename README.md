@@ -43,8 +43,8 @@ docker-compose.ymlファイルを編集してください。
   - Laravel Migration / Seeder / Factory（スキーマ・テストデータ管理）
 ### 開発ツール
 - Visual Studio Code（推奨IDE）
-  - Laravel Artisan CLI（開発支援コマンド）
-  - Git（バージョン管理）
+- Laravel Artisan CLI（開発支援コマンド）
+- Git（バージョン管理）
 
 ## _ER 図_
 
