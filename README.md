@@ -4,9 +4,9 @@
     独自開発のフリマアプリ
 
 ## _環境構築_
-    *1. git clone [リポジトリのURL]
+    1. git clone [リポジトリのURL]
         ※今回はhttps://github.com/bam600/fleamarket-app
-    *2. docker-compose up -d build
+    2. docker-compose up -d build
 ＊MySQLは、OSによって起動しない場合があるので、各PCにあわせて
 docker-compose.ymlファイルを編集してください。
 
