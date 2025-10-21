@@ -31,20 +31,20 @@ docker-compose.ymlファイルを編集してください。
 
 ## _使用技術(実行環境)_
 ### フレームワーク・ライブラリ
-    - Laravel 10.x
-    - Laravel Fortify（認証機能）
-    - Blade（テンプレートエンジン）
-    - Eloquent ORM（リレーション設計）
+  - Laravel 10.x
+  - Laravel Fortify（認証機能）
+  - Blade（テンプレートエンジン）
+  - Eloquent ORM（リレーション設計）
 ### フロントエンド
-    - HTML / CSS（基本構造とスタイル）
-    - Blade（Laravelのテンプレートエンジン）
+  - HTML / CSS（基本構造とスタイル）
+  - Blade（Laravelのテンプレートエンジン）
 ### データベース
-    - MySQL 8.x
-    - Laravel Migration / Seeder / Factory（スキーマ・テストデータ管理）
+  - MySQL 8.x
+  - Laravel Migration / Seeder / Factory（スキーマ・テストデータ管理）
 ### 開発ツール
-    - Visual Studio Code（推奨IDE）
-    - Laravel Artisan CLI（開発支援コマンド）
-    - Git（バージョン管理）
+- Visual Studio Code（推奨IDE）
+  - Laravel Artisan CLI（開発支援コマンド）
+  - Git（バージョン管理）
 
 ## _ER 図_
 
