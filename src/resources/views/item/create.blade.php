@@ -60,7 +60,7 @@
                 <p><input type ="text" name="brand" placeholder="ブランド名を入力してください" value="{{ old('brand') }}" />
                         @error('brand')
                             <div class="error">{{ $message }}</div>
-                         @enderror
+                        @enderror
             </p>
             <h3 class="category-title">商品の説明</h3>
                 <textarea name="description" class="description-box">{{ old('description') }}</textarea>

@@ -20,7 +20,7 @@ class ProfileController extends Controller
      * GETメソッドで　/mypage/profileにアクセスしたときに呼び出される
      * resources/views/mypage/profile.blade.php を表示。
     */
-   public function edit()
+    public function edit()
     {
       if (!Auth::check()) {
         return redirect()->route('login')->withErrors(['auth' => 'ログインしてください']);
@@ -35,7 +35,7 @@ class ProfileController extends Controller
      * バリデーション通以下したデータのみ$requestに渡される
      */
     public function update(ProfileRequest $request) //プロフィール情報の保存（POST）
-   {
+  {
 
     /**
      * User::App\Models\User モデルを使って、users テーブルにアクセス

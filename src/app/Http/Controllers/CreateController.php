@@ -16,7 +16,7 @@ class CreateController extends Controller
     {   
         //カテゴリー一覧の取得(チェックボックス表示用)
         $categories = Category::all(); 
-        // 商品状態一覧の取得(セレクトボックス表示表)
+        // 商品状態一覧の取得(セレクトボックス表示用)
         $conditions = Condition::all();
 
         // 新規出品用の空のExhibitionインスタンスを渡す
@@ -48,8 +48,7 @@ class CreateController extends Controller
             $exhibition->categories()->attach($validated['categories']);
         }
 
-        return redirect()->route('mypage')
-          ->with('status', '商品を出品しました。'); 
+        return redirect()->route('mypage')->with('status', '商品を出品しました。'); 
     }
 
 }

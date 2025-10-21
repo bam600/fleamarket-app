@@ -5,7 +5,9 @@
 
 {{--タイトルタグの設定--}}
 @section('title', 'マイページ')
-
+@section('head')    {{--専用CSSを読み込む---}}
+    <link rel="stylesheet" href="{{ asset('css/product-list.css') }}">
+@endsection
 @section('content') 
     {{-- profile編集画面リンクボタン --}}
     <p>{{ Auth::user()->user_name }}</p>

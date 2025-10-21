@@ -1,75 +1,67 @@
-<!-- PG03 会員登録登録画面 -->
-@extends('layouts.app')  <!--共通のレイアウトを継承(resources/views/layouts/app.blade.php がベース)-->
-@section('title', '会員登録画面')   <!--HTMLの <title> タグに表示されるページタイトル。-->
-@section('content') <!--レイアウトの @yield('content') に差し込まれるメインコンテンツ。-->
-    
-    <form action="{{ route('register.create') }}" method="post" novalidate>    <!--web.php に定義された register.store ルートへPOST送信。通常は RegisterController@store() に対応。POSTメソッドはデータ登録に対応 -->
-        @csrf
+{{-- PG03 会員登録登録画面 --}}
+@extends('layouts.app')  {{--継承--}}
+@section('title', '会員登録画面')  {{--タグタイトル--}}
+@section('head')    {{--専用CSSを読み込む---}}
+    <link rel="stylesheet" href="{{ asset('css/user-access.css') }}">
+@endsection
+@section('content')     {{--POSTメソッドでータ送信 データ登録に対応 --}}
+<form action="{{ route('register.create') }}" method="post" novalidate>    
+    @csrf
+    <div class="table-wrapper">
         <table>
-            <th colspan=4><h2>会員登録</h2></th>
-                <tr>
-                    <td colspan =4 class="td"><label>ユーザー名</label></td>
-                </tr>
-                <tr>
-                    <td colspan =4>
-                        <input type ="text" name="user_name" placeholder="テスト太郎"  value="{{ old('user_name') }}"/>    <!--name="user_name"はバリデーション対象-->
+            <th><h2 class="h2">会員登録</h2></th>
+
+                <tr><td class="td"><label>ユーザー名</label></td>
+                    <td>
+                        <span class="error">
+                            @error('user_name') 
+                                {{ $message }}
+                            @enderror
+                        </span>
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="4" class="error">
-                        @error('user_name') <!-- エラーメッセージ -->
+                <tr><td colspan =4>
+                        <input type ="text" name="user_name" placeholder="テスト太郎"  value="{{ old('user_name') }}"/>
+                </td></tr>
+
+
+            <tr><td class="td"><label>メールアドレス</label></td>
+                <td>
+                    <span class="error">
+                        @error('email')
                             {{ $message }}
                         @enderror
-                    </td>
-                </tr>
-
-            <tr>
-                <td colspan =4  class="td"><label>メールアドレス</label></td>
-            </tr>
-            <tr>
-                <td colspan =4><input type ="email" name="email" placeholder="1234@gmail.com" value="{{ old('email') }}" /></td>    <!--name="email"はバリデーション対象-->
-            </tr>
-            <tr>
-                <td colspan="4" class="error">
-                    @error('email')
-                        {{ $message }}
-                    @enderror
+                    </span>
                 </td>
             </tr>
+            <tr><td colspan =4><input type ="email" name="email" placeholder="1234@gmail.com" value="{{ old('email') }}" /></td></tr>
 
-            <tr>
-                 <td colspan =4  class="td"><label>パスワード</label></td>
-            </tr>
-            <tr>
-                <td colspan =4><input type="password" name="password" placeholder="12345abcde" /></td>  <!--name="password"はバリデーション対象-->
-            </tr>
-            <tr>
-                <td colspan="4" class="error">
-                    @error('password')
-                        {{ $message }}
-                    @enderror
+            <tr><td class="td"><label>パスワード</label></td>
+                <td>
+                    <span class="error">
+                        @error('password')
+                            {{ $message }}
+                        @enderror
+                    </span>
                 </td>
             </tr>
+            <tr><td colspan =4><input type="password" name="password" placeholder="12345abcde" /></td></tr>
 
-            <tr> 
-                <td colspan =4 class="td"><label>確認用パスワード</label></td>
+            <tr><td class="td"><label>確認用パスワード</label></td>
+                <td>
+                    <span class="error">
+                        @error('password_confirmation')
+                            {{ $message }}
+                        @enderror
+                    </span> 
+                </td>   
             </tr>
-                <!-- バリデーション名：password_confirmation（confirmedルールと連携）--> 
-                <td><input type ="password" name="password_confirmation" placeholder="12345abcde" value="{{ old('password_confirmation') }}" /></td>    <!--name="password_confirmation" → confirmed ルールと連携し、password と一致するかチェック。-->
-            <tr>
-                <td colspan="4" class="error">
-                    @error('password_confirmation')
-                        {{ $message }}
-                    @enderror 
-                </td>
-            </tr>
+            <tr><td><input type ="password" name="password_confirmation" placeholder="12345abcde" value="{{ old('password_confirmation') }}" /></td></tr>
 
-            <tr>   
-                <td><button type="submit">登録する</button></td>    <!--押下すると、フォームが register.store にPOST送信され、RegisterController@store() が実行されます。-->
-            </tr>
-            <tr>
-                <td colspan=4 class="center-link" ><a href="{{ route('login') }}">ログインはこちら</a></td> <!--既存ユーザー向けの動線。login ルートに遷移し、ログイン画面を表示します。 -->            
-            </tr>
+            <tr><td colspan="2"><button type="submit">登録する</button></td></tr>
+
+            <tr><td colspan=4 class="center-link" ><a href="{{ route('login') }}">ログインはこちら</a></td></tr>
         </table>
-    </form>
+</div>
+</form>
 @endsection

@@ -12,7 +12,6 @@
     <!-- ブラウザタブに表示されるページタイトル -->
     <title>@yield('title', 'デフォルトタイトル')</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/index.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/contents.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/product_img.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/header_title.css') }}" />

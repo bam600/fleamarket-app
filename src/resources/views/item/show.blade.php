@@ -34,13 +34,16 @@
                 @endif
                 <p>いいね数：{{ $exhibition->likes_count ?? 0 }}</p>
             @endauth
-
+            @if($exhibition->status!=="sold")
             {{-- 購入手続きボタン（独立フォーム） --}}
             <form method="POST" action="{{ route('item.prepare') }}">
                 @csrf
                 <input type="hidden" name="id" value="{{ $exhibition->id }}">
                 <button type="submit">購入手続きへ</button>
             </form>
+            @else
+                <p>売り切れの商品です</p>
+            @endif
 
             {{-- 商品説明・情報 --}}
             <p><label class="contents2">商品説明</label></p>

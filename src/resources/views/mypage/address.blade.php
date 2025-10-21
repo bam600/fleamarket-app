@@ -1,33 +1,20 @@
-{{-- PG10 プロフィール設定画面 --}}
+{{-- PG07 送付先住所変更画面 --}}
 @extends('layouts.app')  {{--継承--}}
-@section('title', '会員登録画面')  {{--タグタイトル--}}
+@section('title', '送付先住所変更')  {{--タグタイトル--}}
 @section('head')    {{--専用CSSを読み込む---}}
     <link rel="stylesheet" href="{{ asset('css/user-access.css') }}">
 @endsection
 
 @section('content')
 
-<form action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
-    @csrf 
+<form action="{{ route('purchase.store', ['id' => $exhibition_id]) }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <!-- 以下、テーブル構造はそのままでOK --> 
     <div class="table-wrapper">
     <table>
         <tr>
-            <th><h2 class="h2">プロフィール設定</h2></th>
+            <th><h2 class="h2">住所変更</h2></th>
         </tr>
-
-            <tr>
-                <td class="td"><label>ユーザー名</label></td>
-                    <td>
-                        <span class="error">
-                            @error('user_name')
-                                {{ $message }}
-                            @enderror
-                        </span>
-                    <td>
-            </tr>
-            <tr>
-                <td><input type="text" name="user_name" placeholder="テスト太郎" value="{{ $user->user_name ?? '' }}" /></td>
-            </tr> 
         
             <tr><td class="td"><label>郵便番号</label></td>
                 <td>
@@ -40,7 +27,7 @@
             </tr>
 
             <tr>   
-                <td><input type="text" name="postal_code" placeholder="123-4567" value="{{ $user->profile->postal_code ?? '' }}" /></td>
+                <td><input type="text" name="postal_code" value="{{ old('postal_code', $postal_code) }}"></td>
             </tr>
 
             <tr>
@@ -54,7 +41,7 @@
                 </td>
             </tr>
             <tr>
-                <td><input type="text" name="address" placeholder="東京都新宿区..." value="{{ $user->profile->address ?? '' }}" /></td>
+                <td><input type="text" name="address" value="{{ old('address', $address) }}"></td>
             </tr>
 
             <tr>
@@ -69,7 +56,7 @@
             </tr>
 
             <tr>
-                <td><input type="text" name="building" placeholder="コーポ〇〇 101号室" value="{{ optional($user->profile)->building }}"/></td>
+                <td><input type="text" name="building" value="{{ old('building', $building) }}"></td>
 
             <tr>
                 <td colspan=2 class="center-link" ><button type="submit" >更新する</button></td>

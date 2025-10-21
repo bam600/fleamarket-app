@@ -11,6 +11,7 @@ use App\Http\Controllers\MypageController;
 use App\Http\Controllers\CreateController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 // PG01　商品一覧(トップ画面)-ログイン後*******************************************************************
@@ -51,6 +52,13 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
     //! POST /
     // 中間処理：セッションに保存して確認画面へ
     Route::post('/purchase', [PurchaseController::class, 'preparePurchase'])->name('item.prepare');
+
+// pG07 住所変更画面***************************************************************************************
+    //!GET
+    Route::get('/purchase/address/{id}', [AddressController::class, 'address'])->middleware('auth')->name('address');
+    //!POST
+    Route::post('/purchase/{id}', [PurchaseController::class, 'store'])->name('purchase.store');
+
 
 
 
