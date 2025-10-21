@@ -11,38 +11,38 @@
 docker-compose.ymlファイルを編集してください。
 
 ## _laravel環境構築_
-    *1.docker-compose exec php bash
-    *2.composer install
-    *3.env.exampleファイルから.envファイルを作成し、環境変数を変更
-    *4.php artisan key:generate
-    *5.php artisn make:mygrate
-    *6.php artisan db:seed
+    1.docker-compose exec php bash
+    2.composer install
+    3.env.exampleファイルから.envファイルを作成し、環境変数を変更
+    4.php artisan key:generate
+    5.php artisn make:mygrate
+    6.php artisan db:seed
     
 ## _laravel fortifyの導入_
-    *1 docoker-compose exec php bash
-    *2 composer require laravel/fortify
-    *3 config/app.phpにApp\Providers\FortifyServiceProvider::class,を追加
-    *4 php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
-    *5 App\Providers\FortifyServiceProvider.phpに
+    1 docoker-compose exec php bash
+    2 composer require laravel/fortify
+    3 config/app.phpにApp\Providers\FortifyServiceProvider::class,を追加
+    4 php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
+    5 App\Providers\FortifyServiceProvider.phpに
         Fortify::loginView(fn () => view('auth.login'));
         Fortify::registerView(fn () => view('auth.register'));をついか
     ＊必要に応じてルーティングやビューを調整
 
 
 ## _使用技術(実行環境)_
-    ### フレームワーク・ライブラリ
+    ###フレームワーク・ライブラリ
             - Laravel 10.x
             - Laravel Fortify（認証機能）
             - Blade（テンプレートエンジン）
             - Eloquent ORM（リレーション設計）
-    ### フロントエンド
+    ###フロントエンド
             - HTML / CSS（基本構造とスタイル）
             - Blade（Laravelのテンプレートエンジン）
 
-    ### データベース
+    ###データベース
             - MySQL 8.x
             - Laravel Migration / Seeder / Factory（スキーマ・テストデータ管理）
-    ### 開発ツール
+    ###開発ツール
             - Visual Studio Code（推奨IDE）
             - Laravel Artisan CLI（開発支援コマンド）
             - Git（バージョン管理）
