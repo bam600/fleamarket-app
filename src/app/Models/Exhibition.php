@@ -55,7 +55,7 @@ public function isLikedBy($user)
 
         public function confirm(Request $request)
     {
-        // 処理内容
+        
     }
 }
 

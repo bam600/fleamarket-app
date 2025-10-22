@@ -67,7 +67,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
     Route::post('/purchase/address/{id}', [AddressController::class, 'change'])->name('address.change');
 
 // PG09 プロフィール画面*******************************************************************************
-    //! GET /mypage：プロフィール編集画面を表示。(editは表示の責務)
+    //! GET /mypage：プロフィールを表示。(editは表示の責務)
     Route::get('/mypage', [MypageController::class, 'index'])->middleware('auth')->name('mypage'); //会員登録画面で登録後のリダイレクト先
 
 // PG10　プロフィール登録画面*******************************************************************************
