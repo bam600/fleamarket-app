@@ -3,19 +3,17 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Laravel\Fortify\Fortify;
 
-class CreateUsersTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        //顧客情報新規登録及びプロフィール登録用テーブル(user_profiles)
         Schema::create('users', function (Blueprint $table) {
-            // id
+            // ID
             $table->id();
             // ユーザー名
             $table->string('user_name', 255);
@@ -23,6 +21,15 @@ class CreateUsersTable extends Migration
             $table->string('email', 255)->unique();
             // パスワード
             $table->string('password', 255);
+
+            // Fortify 2要素認証カラム
+            $table->text('two_factor_secret')->nullable();
+            $table->text('two_factor_recovery_codes')->nullable();
+
+            if (Fortify::confirmsTwoFactorAuthentication()) {
+                $table->timestamp('two_factor_confirmed_at')->nullable();
+            }
+
             // タイムスタンプ
             $table->timestamps();
         });
@@ -30,11 +37,9 @@ class CreateUsersTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('users');
     }
-}
+};

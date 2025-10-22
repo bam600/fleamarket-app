@@ -10,6 +10,8 @@ services:
       - ./src:/var/www
     depends_on:
       - php
+    networks:
+      - app-network
 
   php:
     build:
@@ -17,6 +19,10 @@ services:
       dockerfile: docker/php/Dockerfile
     volumes:
       - ./src:/var/www
+    depends_on:
+      - mysql
+    networks:
+      - app-network
 
   mysql:
     image: mysql:8.0.26
@@ -29,6 +35,8 @@ services:
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
       - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    networks:
+      - app-network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -41,3 +49,8 @@ services:
       - mysql
     ports:
       - "8080:80"
+    networks:
+      - app-network
+
+networks:
+  app-network:

@@ -13,7 +13,7 @@ class CreatePurchasesTable extends Migration
 
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('exhibition_id')->constrained()->onDelete('cascade');
-            $table->foreignId('payment_id')->constrained('payment')->onDelete('restrict');
+            $table->foreignId('payment_id')->constrained('payments')->onDelete('restrict');
 
             $table->integer('price');
 

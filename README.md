@@ -6,18 +6,27 @@
 ## _環境構築_
     1. git clone [リポジトリのURL]
         ※今回はhttps://github.com/bam600/fleamarket-app
-    2. docker-compose up -d build
+    2. docker-compose up -d --build
 ＊MySQLは、OSによって起動しない場合があるので、各PCにあわせて
 docker-compose.ymlファイルを編集してください。
 
 ## _laravel環境構築_
     1.docker-compose exec php bash
     2.composer install
-    3.env.exampleファイルから.envファイルを作成し、環境変数を変更
+    3.env.exampleファイルから.envファイルを作成し
+    環境変数を下記のように変更する
+    DB_CONNECTION=mysql
+    DB_HOST=mysql
+    DB_DATABASE=laravel_db
+    DB_USERNAME=laravel_user
+    DB_PASSWORD=laravel_pass
+
     4.php artisan key:generate
-    5.php artisn make:mygrate
+    mySQLの接続の不具合の場合下記を行い、再度4.を行う
+      ① mariadb-clientインストール　apt update && apt install -y mariadb-client
+    5.php artisan migrate
     6.php artisan db:seed
-    
+
 ## _laravel fortifyの導入_
     1.docoker-compose exec php bash
     2.composer require laravel/fortify
