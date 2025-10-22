@@ -28,6 +28,8 @@ docker-compose.ymlファイルを編集してください。
         Fortify::registerView(fn () => view('auth.register'));をついか
     ＊必要に応じてルーティングやビューを調整
 
+## _Livewireの導入_
+    1.composer require livewire/livewire
 
 ## _使用技術(実行環境)_
 ### フレームワーク・ライブラリ
