@@ -26,6 +26,7 @@ class ProfileController extends Controller
         return redirect()->route('login')->withErrors(['auth' => 'ログインしてください']);
       }
         $user = Auth::user()->load('profile');
+        // mypage/profileにuserモデルを持って表示
         return view('mypage.profile', compact('user'));
     }
 
@@ -36,7 +37,6 @@ class ProfileController extends Controller
      */
     public function update(ProfileRequest $request) //プロフィール情報の保存（POST）
   {
-
     /**
      * User::App\Models\User モデルを使って、users テーブルにアクセス
      * ->first():条件に一致したレコードのうち、最初の1件を取得
@@ -47,12 +47,10 @@ class ProfileController extends Controller
      * 'user_name' => '...'：user_name フィールドに対してエラーを表示。
      */
     $user = Auth::user()->load('profile');// ログインユーザー取得
-
     // ユーザーネームを更新
     $user->update([
-        'user_name' => $request->user_name,
+      'user_name' => $request->user_name,
     ]);
-
     // プロフィールの更新 or 作成(firstOrNew)
     $profile = Profile::firstOrNew(['user_id' => $user->id]);
     $isNew = !$profile->exists;
@@ -62,13 +60,15 @@ class ProfileController extends Controller
     $profile->building    = $request->building;
     $profile->save();
 
-
     // 遷移先を分岐
     return $isNew
+    // 新規登録だったら商品一覧画面に遷移
     ? redirect()->route('item.index')
+    // 新規登録ではなかったらマイページに遷移
     : redirect()->route('mypage');
   }
 
+  
   public function show()
     {
         $user = Auth::user();

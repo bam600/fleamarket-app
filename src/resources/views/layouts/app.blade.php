@@ -20,10 +20,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gorditas:wght@400;700&family=Noto+Sans+JP:wght@810&display=swap" rel="stylesheet">
     @yield('head')
+    @livewireStyles
 </head>
     <!-- ページの表示内容(本文の開始=>bodyタグ) -->
-<body>
- <header class="header">
+<body>  
+<header class="header">
     <div class="header__inner">
         <a href="/" class="header__logo">
             <img class="logo-image" src="{{ asset('images/logo.svg') }}" alt="ロゴ">
@@ -50,5 +51,6 @@
     <main>
         @yield('content')
     </main>
+@livewireScripts
 </body>
 </html>

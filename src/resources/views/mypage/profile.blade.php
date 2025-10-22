@@ -1,7 +1,13 @@
 {{-- PG10 プロフィール設定画面 --}}
-@extends('layouts.app')  {{--継承--}}
-@section('title', '会員登録画面')  {{--タグタイトル--}}
-@section('head')    {{--専用CSSを読み込む---}}
+
+{{--継承--}}
+@extends('layouts.app')
+
+{{--タグタイトル--}}
+@section('title', 'プロフィール登録(初回)')
+
+{{--専用CSSを読み込む---}}
+@section('head')
     <link rel="stylesheet" href="{{ asset('css/user-access.css') }}">
 @endsection
 
@@ -11,40 +17,53 @@
     @csrf 
     <div class="table-wrapper">
     <table>
-        <tr>
-            <th><h2 class="h2">プロフィール設定</h2></th>
-        </tr>
+        <caption class="h2">プロフィール設定</caption>
 
             <tr>
-                <td class="td"><label>ユーザー名</label></td>
-                    <td>
-                        <span class="error">
-                            @error('user_name')
-                                {{ $message }}
-                            @enderror
-                        </span>
-                    <td>
-            </tr>
-            <tr>
-                <td><input type="text" name="user_name" placeholder="テスト太郎" value="{{ $user->user_name ?? '' }}" /></td>
-            </tr> 
-        
-            <tr><td class="td"><label>郵便番号</label></td>
+                <td class="td">
+                    <label>ユーザー名</label>
+                </td>
+                    
                 <td>
                     <span class="error">
-                            @error('postal_code')
-                                {{ $message }}
-                            @enderror
+                        @error('user_name')
+                            {{ $message }}
+                        @enderror
+                    </span>
+                <td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="text" name="user_name" placeholder="{{ $user->user_name ?? '' }}" value="{{ $user->user_name ?? '' }}" />
+                </td>
+            </tr> 
+        
+            <tr>
+                <td class="td">
+                    <label>郵便番号</label>
+                </td>
+
+                <td>
+                    <span class="error">
+                        @error('postal_code')
+                            {{ $message }}
+                        @enderror
                     </span>
                 </td>
             </tr>
 
             <tr>   
-                <td><input type="text" name="postal_code" placeholder="123-4567" value="{{ $user->profile->postal_code ?? '' }}" /></td>
+                <td>
+                    <input type="text" name="postal_code" placeholder="{{ $user->user_name ?? '' }}" value="{{ $user->profile->postal_code ?? '' }}" />
+                </td>
             </tr>
 
             <tr>
-                <td class="td"><label>住所</label></td>
+                <td class="td">
+                    <label>住所</label>
+                </td>
+
                 <td>
                     <span class="error">
                         @error('address')
@@ -53,27 +72,38 @@
                     </span>
                 </td>
             </tr>
+
             <tr>
-                <td><input type="text" name="address" placeholder="東京都新宿区..." value="{{ $user->profile->address ?? '' }}" /></td>
+                <td>
+                    <input type="text" name="address" placeholder="{{ $user->profile->address ?? '' }}"value="{{ $user->profile->address ?? '' }}" />
+                </td>
             </tr>
 
             <tr>
-                <td class="td"><label>建物名</label></td>
-                    <td>
-                        <span class="error">
-                            @error('building')
-                                {{ $message }}
-                            @enderror
-                        </span>
-                    </td>
+                <td class="td">
+                    <label>建物名</label>
+                </td>
+
+                <td>
+                    <span class="error">
+                        @error('building')
+                            {{ $message }}
+                        @enderror
+                    </span>
+                </td>
             </tr>
 
             <tr>
-                <td><input type="text" name="building" placeholder="コーポ〇〇 101号室" value="{{ optional($user->profile)->building }}"/></td>
+                <td>
+                    <input type="text" name="building" placeholder="{{ optional($user->profile)->building }}" value="{{ optional($user->profile)->building }}"/>
+                </td>
+            </tr>
 
             <tr>
-                <td colspan=2 class="center-link" ><button type="submit" >更新する</button></td>
+                <td colspan=2 class="center-link" >
+                    <button type="submit" >更新する</button>
+                </td>
             </tr>
-</table>
+    </table>
 </form>
 @endsection

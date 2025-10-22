@@ -7,7 +7,7 @@
 
 @section('content')
 
-<form action="{{ route('purchase.store', ['id' => $exhibition_id]) }}" method="POST" enctype="multipart/form-data">
+<form method="POST" action="{{ route('address.change', ['id' => $exhibition_id]) }}">
     @csrf
     <!-- 以下、テーブル構造はそのままでOK --> 
     <div class="table-wrapper">

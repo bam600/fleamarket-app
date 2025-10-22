@@ -9,16 +9,32 @@ use App\Models\Condition;
 
 class ItemController extends Controller
 {
-    // 商品詳細画面
+    // 商品詳細画面を表示するメソッド
     public function show($id)
     {
+        /**
+         * 指定された商品の情報を1件取得
+         * with(['categories', 'condition']) → 関連テーブルも一緒に取得
+         * （リレーション）
+         * withCount('likes') → いいね数（likes_count）を自動で追加
+         * findOrFail($id) → 該当するIDの商品を探す。なければ404エラー
+         * （自動でNotFound画面）
+         */
         $exhibition = Exhibition::with(['categories', 'condition'])
-                         ->withCount('likes')
-                         ->findOrFail($id);
+            ->withCount('likes')
+            ->findOrFail($id);
 
+        /**取得した商品に紐づくカテゴリ情報を取り出す
+         *$exhibition->categories は、Exhibitionモデルで定義した
+         *リレーションから呼び出せる
+         */
         $categories = $exhibition->categories;
 
-      return view('item.show', compact('exhibition', 'categories')); //  ここが 'item.show' であること
+    /**
+     *データをビュー(item/show.blade.php)に渡して表示する
+     *compact('exhibition', 'categories') で変数をまとめてビューに送る
+     * */
+    return view('item.show', compact('exhibition', 'categories')); 
 }
 
 

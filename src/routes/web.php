@@ -24,8 +24,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
     //! get:会員登録フォームを表示(showは表示という責務が明確)
     Route::get('/register', [RegisterController::class, 'show'])->name('register'); 
 
-    //! フォーム送信後ユーザー情報を保存(storeは保存という責務が明確)
-    Route::post('/register', [RegisterController::class, 'store'])->name('register.create');
+    //!フォーム送信後ユーザー情報を保存(storeは保存という責務が明確) register.blade
+    Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 // pG04 ログイン画面**************************************************************************************
     //! ログインフォーム表示
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
@@ -52,16 +52,19 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
     //! POST /
     // 中間処理：セッションに保存して確認画面へ
     Route::post('/purchase', [PurchaseController::class, 'preparePurchase'])->name('item.prepare');
+    // 支払い方法選択のリアルタイム更新
+    Route::post('/purchase/{id}', [PurchaseController::class, 'selectPayment'])->name('payment.select');
+    //注文完了
+    Route::post('/order/{id}',[PurchaseController::class, 'order'])->name('order');
 
 // pG07 住所変更画面***************************************************************************************
     //!GET
-    Route::get('/purchase/address/{id}', [AddressController::class, 'address'])->middleware('auth')->name('address');
+    // 住所編集画面（リンクで使う）
+    Route::get('/purchase/address/{id}', [AddressController::class, 'editAddress'])->name('address');
+
     //!POST
-    Route::post('/purchase/{id}', [PurchaseController::class, 'store'])->name('purchase.store');
-
-
-
-
+    // 住所更新（フォーム送信先）
+    Route::post('/purchase/address/{id}', [AddressController::class, 'change'])->name('address.change');
 
 // PG09 プロフィール画面*******************************************************************************
     //! GET /mypage：プロフィール編集画面を表示。(editは表示の責務)
@@ -81,3 +84,6 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
     });
 
 
+// 購入完了
+    Route::post('/order/{id}', [PurchaseController::class, 'order'])->name('order');
+    Route::get('/complete', [PurchaseController::class, 'complete'])->name('purchase.complete');

@@ -1,4 +1,5 @@
 <?php
+
 // PG03　会員登録画面(register)*******************************************************************************************************
 
 /**
@@ -7,14 +8,20 @@
  * resources/views/register.blade.php を返す
  */
 
-namespace App\Http\Controllers;  //クラスの(名前空間)を定義する宣言
+//クラスの(名前空間)を定義する宣言
+namespace App\Http\Controllers;  
 
-use Illuminate\Support\Facades\Auth;   //laravelの認証機能(ログイン・ログアウト)を操作するためのファザード(ファザード→便利な窓口でクラスを簡単につかえるようにしてくれる)
-use Illuminate\Support\Facades\Hash;   //パスワードなどを安全に暗号化（ハッシュ化）するためのファサード
+//laravelの認証機能(ログイン・ログアウト)を操作するためのファザード(ファザード→便利な窓口でクラスを簡単につかえるようにしてくれる)
+use Illuminate\Support\Facades\Auth;
+//パスワードなどを安全に暗号化（ハッシュ化）するためのファサード 
+use Illuminate\Support\Facades\Hash;   
+//テーブルを連携するEloquentモデル。ユーザー情報の保存・取得に使う
+use App\Models\User;
+//フォーム入力のバリデーションルールを定義したクラス。store() メソッドの引数として使用。
+use App\Http\Requests\RegisterRequest;
+//ログインフォーム用のバリデーションルールを定義したクラス
+use App\Http\Requests\LoginRequest;
 
-use App\Models\User; //テーブルを連携するEloquentモデル。ユーザー情報の保存・取得に使う
-use App\Http\Requests\RegisterRequest; //フォーム入力のバリデーションルールを定義したクラス。store() メソッドの引数として使用。
-use App\Http\Requests\LoginRequest; //ログインフォーム用のバリデーションルールを定義したクラス
 
 /**
  * RegisterController は Laravel のベースコントローラー Controller を継承
@@ -22,29 +29,43 @@ use App\Http\Requests\LoginRequest; //ログインフォーム用のバリデー
  **/
 class RegisterController extends Controller
 {
+
+
    /** 
     *  showメソッド:登録画面の表示
     */
-    public function show() //GET /registerにアクセスしたときに呼び出されるメソッド
+
+    //GET /registerにアクセスしたときに呼び出されるメソッド  (localhost/でアクセス後)
+   public function show()
    {
-       return view('register'); //resources/views/register.blade.php を表示します。
+      //resources/views/register.blade.php を表示
+      return view('register'); 
    }
-      /** 
+
+   /** 
     *  storeメソッド:登録処理
     */
-    public function store(RegisterRequest $request) //POST /registerにアクセスしたときに呼び出されるメソッド バリデーションチェックで問題なく通過した場合のみ変数$requestに渡される
+
+   //POST 会員登録ボタンを押した後の処理　バリデーションチェックで問題なく通過した場合のみ変数$requestに渡される
+   public function store(RegisterRequest $request) 
    {
-      $validated = $request->validated();  //users テーブルに新しいレコードを追加
+      
+      //users テーブルに新しいレコードを追加
+      $validated = $request->validated();
 
       // バリデーション通過積みのユーザー入力値
-      $user = User::create([ // UserはEloquentモデル　create()は渡された配列を使って新しいレコードを作成
-        'user_name' => $validated['user_name'],
-        'email' => $validated['email'], 
-        'password' => Hash::make($validated['password']), // Hash::make() は Bcrypt を使って安全に暗号化する
+      // UserはEloquentモデル　create()は渡された配列を使って新しいレコードを作成
+      $user = User::create([
+         'user_name' => $validated['user_name'],
+         'email' => $validated['email'], 
+          // Hash::make() は Bcrypt を使って安全に暗号化する
+         'password' => Hash::make($validated['password']),
       ]);
       // ※モデル側で $fillable に user_name, email, password が設定されている必要有
-   
-      Auth::login($user); //作成したユーザがログイン状態になる(セッション開始)
-      return redirect()->route('profile.edit'); //route('profile.edit') で /mypage/profile にリダイレクト
+      
+      //作成したユーザがログイン状態になる(セッション開始)
+      Auth::login($user);
+       //route('profile.edit') で /mypage/profile にリダイレクト
+      return redirect()->route('profile.edit');
    }
 }

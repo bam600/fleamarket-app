@@ -39,8 +39,8 @@ class ProfileRequest extends FormRequest
 
      // バリデーションエラーメッセージの設定
     public function messages()
-     {
-         return [
+    {
+    return [
             // 'image.required' => 'プルフィール画像をアップロードしてください',
             // 'image.image' => '画像ファイルを選択してください',
             // 'image.mimes' => '画像はjpegまたはpngファイルを選択してください',
@@ -48,7 +48,7 @@ class ProfileRequest extends FormRequest
             'postal_code.required' => '郵便番号を入力してください',
             'postal_code.regex' => '郵便番号はハイフンを含めた8桁で入力してください',
             'address.required' => '住所を入力してください',
-         ];
+    ];
 
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 // このクラスが属する名前空間。laravelでは通常App\Http\Requestsに配置
 namespace App\Http\Requests;
 // laravelのFormRequestクラスを継承するために必要な宣言
@@ -41,15 +42,15 @@ class RegisterRequest extends FormRequest
 
     // バリデーションエラーメッセージの設定
     public function messages()
-     {
-         return [
+    {
+        return [
             'user_name.required' => 'お名前を入力してください',
             'email.required' => 'メールアドレスを入力してください',
             'email.email'=>'メールアドレスはメールアドレス形式で入力してください',
             'password.required' => 'パスワードを入力してください',
             'password.min' => 'パスワードは８文字以上で入力してください',
             'password.confirmed' => 'パスワードと一致しません'
-         ];
+        ];
 
     }
 }

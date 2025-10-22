@@ -30,32 +30,48 @@
                 {{-- メッセージ表示 --}}
                 <p>{{ $message }}</p>
 
-            <h3 class="category-title">支払い方法</h3>
-            <select name="payment_id" required><option value="">選択してください</option>
-                @foreach($payments as $payment)
-                    <option value="{{ $payment->id }}"
-                        {{ old('payment_id') == $payment->id ? 'selected' : '' }}>
-                        {{ $payment->name }}
-                    </option>
-                @endforeach
-            </select>
-                @php
-                    $payment_name =  $payment->name;
-                @endphp
-            <div>
-            <p>配送先</p>
-            <a href="{{ route('address', ['id' => $exhibition->id]) }}">変更する</a>
-                <p>{{$postal_code}}</p>
-                <p>{{$address}}</p>
-                <p>{{$building}}</p>
+                <h3 class="category-title">支払い方法</h3>
+                    @livewire('payment-selector', ['exhibitionId' => $exhibition->id])
+
+                <div>
+                    <p>商品代金</p>
+                    <p>¥{{$product_price}}</p>
+                </div>
+
+                <p>配送先</p>
+                    <a href="{{ route('address', ['id' => $exhibition->id]) }}">変更する</a>
+                        <p>{{$postal_code}}</p>
+                        <p>{{$address}}</p>
+                        <p>{{$building}}</p>
             </div>
-        <div>
-            <p>商品代金</p>
-            <p>¥{{$product_price}}</p>
-            <p>支払い方法</p>
-            <p>{{$payment_name}}</p>
-        </div>
-        <p><button type="submit">購入する</button></p>
+
+
+
+        {{-- エラーを見える化 --}}
+        @if ($errors->any())
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+
+        <form method="POST" action="{{ route('order', ['id' => $exhibition->id]) }}">
+            @csrf
+
+        {{-- セッション直参照はやめ、コントローラから渡された画面変数を使う --}}
+        <input type="hidden" name="payment_id"    value="{{ $selected_payment_id }}">
+        <input type="hidden" name="postal_code"   value="{{ $postal_code }}">
+        <input type="hidden" name="address_line" value="{{ $address }}">
+        <input type="hidden" name="building_name" value="{{ $building }}">
+        <input type="hidden" name="exhibition_id" value="{{ $exhibition->id }}">
+        <input type="hidden" name="price" value="{{ $exhibition->price }}">
+
+            <p><button type="submit">購入する</button></p>
+        </form>
     </div>
-    </div>
+</div>
 @endsection
