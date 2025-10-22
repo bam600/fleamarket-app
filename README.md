@@ -47,7 +47,7 @@ docker-compose.ymlファイルを編集してください。
 - Git（バージョン管理）
 
 ## _ER 図_
-![FrimaApp構成図](.fleamarket-app/frimaapp.png)
+![FrimaApp構成図](../frimaapp.png)
 
 ## _URL_
 ### 開発環境（ローカル）  
