@@ -12,9 +12,11 @@ class ProfileSeeder extends Seeder
     public function run()
     {
         User::all()->each(function ($user) {
-            Profile::factory()->create([
-                'user_id' => $user->id,
-            ]);
+            if (!$user->profile) {
+                Profile::factory()->create([
+                    'user_id' => $user->id,
+                ]);
+            }
         });
     }
 }
