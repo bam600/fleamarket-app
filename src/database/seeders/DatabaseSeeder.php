@@ -15,7 +15,7 @@ public function run()
 {
     // Factoryによる基本データ生成
     \App\Models\User::factory()->count(15)->create();
-    \App\Models\Profile::factory()->count(15)->create();
+
 
     // Seederの実行順序（依存関係を考慮）
     $this->call([
