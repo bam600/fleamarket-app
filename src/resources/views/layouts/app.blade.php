@@ -12,10 +12,8 @@
     <!-- ブラウザタブに表示されるページタイトル -->
     <title>@yield('title', 'デフォルトタイトル')</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/contents.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/product_img.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/header_title.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/sell.css') }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gorditas:wght@400;700&family=Noto+Sans+JP:wght@810&display=swap" rel="stylesheet">
