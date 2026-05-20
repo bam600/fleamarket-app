@@ -1,0 +1,104 @@
+/* 会員登録、ログイン共通用css */
+
+/* 位置の設定 */
+html,
+body {
+    margin: 0;
+}
+.auth-wrapper {
+    min-height: calc(100vh - 82px); /* ヘッダー82px分を引く */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    flex-direction: column;
+}
+
+.auth-section {
+    width: min(680px, 100%);
+    height: min(678px, 100%);
+    background: #fff;
+    padding: 50px;
+    border-radius: 12px;
+    margin-top: 30px;
+
+    /* section範囲確認用 */
+    /* border: 2px dashed #00aaff; */ /* 枠線を点線で表示 */
+    /* background-color: rgba(0, 170, 255, 0.05); */
+}
+
+/* 見出しｈ1の文字設定 */
+h1{
+    font-family: 'Inter',sans-serif;
+    font-size: 36px;
+    font-style: bold;
+    text-align: center;
+}
+
+/* ラベルの文字設定 */
+label {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-style: bold;
+    text-align: left;
+    display: block;
+}
+
+/* テキストボックスのサイズ設定 */
+.auth-section input[type="text"],
+.auth-section input[type="email"],
+.auth-section input[type="password"] {
+    width: 680px;
+    height: 59px;
+    padding: 0px 12px;
+    margin-bottom: 30px;
+    font-size: 16px;
+    border: 1px solid #5F5F5F;
+    border-radius: 6px;  
+    box-sizing: border-box;
+}
+
+/* 登録ボタンの設定 */
+.btn-submit{
+    width: 680px;
+    height: 65px;
+    border: none;
+    border-radius: 6px;
+    background: #FF5555;
+    color:#ffffff;
+    font-size:26px;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+/* ログイン画面はこちら */
+.login-button{
+    display: block; /* ← これがカギ！ */
+    width: 100%;
+    border: none;
+    color: #0073CC;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    /* ← font-style: bold は無効なので修正！ */
+    text-align: center;
+    text-decoration: none;
+    /* ← 下線を消すにはこれ！ */
+}
+
+/* ラベルとエラーメッセージの表示のずれを解消 */
+.field-header {
+    display: flex;
+    justify-content: space-between;
+    /* 左と右に分ける */
+    align-items: center;
+}
+
+/* エラーメッセージの表示設定 */
+.error-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    color: #FF5555;
+    text-align: right;
+}

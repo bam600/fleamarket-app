@@ -1,168 +1,123 @@
 /* header専用CSS */
 
-
-body {
-    /*固定ヘッダーの高さ分だけ、本文を下にずらすための余白。*/
-    padding-top: 100px; 
-    /*ブラウザのデフォルト余白をリセット。*/
-    margin: 0;
-    /*padding や border を含めて幅・高さを計算。レイアウト崩れを防ぐ。*/
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-}
-
 /* ヘッダー内*/
 .header {
     /*ヘッダーの背景色を黒に設定。*/
     background-color: #000;
-    /*横幅を画面いっぱい*/
-    width: 100%;
-    /*ヘッダーの高さを固定。*/
-    height: 100px;
-    /*画面の最上部に固定表示。*/
-    position: fixed;
-    top: 0;
-    left: 0;
-    /*他の要素より前面に表示。*/
-    z-index: 1000;
+    /* 高さ */
+    display: flex;
+    align-items: center;
+    /* 縦中央 */
+    height: 82px;
 }
 
-/* ヘッダー内レイアウト */
+/* 中身は「最大幅」+ 余白 + 伸縮 */
 .header__inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-    padding: 0 20px;
-}
-
-/* ロゴ */
-.header__logo {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-}
-
-.logo-image {
-    width: 250px;
-    height: auto;
-    display: block;
-}
-
-/* 検索フォームとアクションボタンのラッパー */
-.flex {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-grow: 1;
-}
-
-/* 検索ボックス */
-.flex input[type="text"] {
-    height: 40px;
-    font-size: 1rem;
-    width: 100%;
-    max-width: 600px;
-    border-radius: 10px;
-    padding: 0 10px;
-    border: none;
-}
-
-/* アクションボタン群 */
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: nowrap;
-}
-
-/* リンクとボタン共通 */
-.header-actions a,
-.header-actions button {
-    white-space: nowrap;
-    padding: 10px 16px;
-    font-size: 18px;
-    border: none;
-    cursor: pointer;
-    display: inline-block;
-    border-radius: 6px;
-    transition: background-color 0.2s ease;
-}
-
-/* リンクスタイル */
-.header-link {
-    color: #fff;
-    background-color: transparent;
-    text-decoration: none;
-}
-
-button.header_logout {
-    /* ヘッダーのボタン用 */
-    all: unset;
-    /* すべてのブラウザデフォルトスタイルを解除 */
-    color: #ffffff;
-    /* リンク色 */
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 24px;
-    font-family: 'Inter', sans-serif;
+    max-width: 1100px;
     margin: 0;
-    background: none;
-    border: none;
-    padding: 0px 20px 30px 0px;
+    padding: 0 16px;    /* ← 縦paddingを0に */
+    height: 100%;   /* ← ヘッダー高さに合わせる */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* ← これを追加！ */
+    width:100%;
+    gap: 12px;
+}
+
+.header__inner a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ロゴのレスポンシブ対応 */
+.logo-image {
+    height: 36px;
+    max-width: 100%;
+    width: auto;
+    display: block;
+    /* ← これで余計な余白をなくす */
+    margin: 0;
+    /* ← 念のため余白をリセット */
+}
+
+/*ヘッダーナビゲーション用CSS */
+/* ナビゲーションリストを横並びに */
+
+nav {
+    flex-shrink: 0;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 16px;
+    /* li同士の間隔を調整 */
+}
+
+/* liの中のformやaタグの見た目を整える */
+nav li {
+    display: flex;
+    align-items: right;
+}
+
+/* フォーム内のinputも高さを揃えるときれいに */
+nav input[type="text"] {
+    height: 50px;
+    /* 高さ */
+    width: 500px;
+    /* 横幅（必要に応じて調整） */
+    padding: 4px 8px;
     border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    /* ← これでpadding込みで幅を計算してくれる！ */
 }
 
-/* 出品ボタンスタイル */
-.header-button {
+/* ログアウトボタンの見た目も調整 */
+nav button {
+    height: 50px;
+    padding: 4px 12px;
+    border: none;
     background-color: #fff;
-    color: #333;
+    color: #000;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-/* レスポンシブ対応 */
-@media screen and (max-width: 768px) {
-    .header {
-        height: auto;
-        position: static;
-    }
+/* レスポンシブ対応*/
 
-    body {
-        padding-top: 0;
-    }
-
+@media (max-width: 1500px) {
     .header__inner {
         flex-direction: column;
         align-items: flex-start;
-        padding: 10px;
+        height: auto;
+        padding: 0;
     }
 
-    .flex {
+    nav ul {
         flex-direction: column;
-        align-items: stretch;
+        gap: 8px;
         width: 100%;
     }
 
-    .flex input[type="text"] {
+    nav li {
         width: 100%;
-        margin-top: 10px;
+        justify-content: flex-start;
     }
 
-    .header-actions {
-        flex-direction: column;
-        align-items: flex-start;
+    nav input[type="text"],
+    nav button {
         width: 100%;
-    }
-
-    .header-actions a,
-    .header-actions button {
-        width: 100%;
-        font-size: 16px;
-        padding: 10px;
+        box-sizing: border-box;
     }
 
     .logo-image {
-        width: 180px;
+        margin-bottom: 12px;
     }
 }

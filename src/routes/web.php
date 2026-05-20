@@ -1,8 +1,6 @@
 <?php
 //! laravelのルーティング機能を使うための宣言(Route::get（）Route::post（）が使える)
 use Illuminate\Support\Facades\Route;
-//! 会員登録処理を担当するRegisterControllerを読み込むshow()やstore()メソッドが使える
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
@@ -12,27 +10,16 @@ use App\Http\Controllers\CreateController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\ExhibitionController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 // PG01　商品一覧(トップ画面)-ログイン後*******************************************************************
-    //!get:ログイン後の商品一覧を表示
+    //トップページ(/)へGETアクセスされたら、HomeControllerのindexメソッドを実行し、このルート名を item.index とする
     Route::get('/', [HomeController::class, 'index'])->name('item.index');
     
     Route::get('/mylist', [ExhibitionController::class, 'myLikedItems'])->name('exhibition.mylist');
 
-// PG03 会員登録画面**************************************************************************************
-    //! get:会員登録フォームを表示(showは表示という責務が明確)
-    Route::get('/register', [RegisterController::class, 'show'])->name('register'); 
-
-    //!フォーム送信後ユーザー情報を保存(storeは保存という責務が明確) register.blade
-    Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
-// pG04 ログイン画面**************************************************************************************
-    //! ログインフォーム表示
-    Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-
-    //! ログイン処理(認証)
-    Route::post('/login', [LoginController::class, 'store'])->name('login.store'); 
-    
+// pG04 ログイン画面**************************************************************************************    
     //! ログアウト処理
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');    
 // pG05 商品詳細画面***************************************************************************************
